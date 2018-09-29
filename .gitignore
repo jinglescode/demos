@@ -1,4 +1,8 @@
 .git
+.DS_Store
 pull_git.sh
 push_git.sh
-node_modules/
+tfjs-stocks/node_modules/
+tfjs-stocks/dist/
+tfjs-stocks/npm-debug.log
+tfjs-stocks/.DS_Store
