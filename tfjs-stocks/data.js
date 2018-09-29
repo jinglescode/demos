@@ -49,23 +49,35 @@ export function generateData(numPoints, coeff, sigma = 0.04) {
   })
 }
 
-export function loadFromAlpha(numPoints, coeff, sigma = 0.04) {
-  return tf.tidy(() => {
+
+export function loadFromAlpha(ticker, apikey) {
+  return new Promise(function(resolve, reject) {
 
     var Client = require('node-rest-client').Client;
     var client = new Client();
-    client.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=MSFT&apikey=demo", function (data, response) {
-        console.log(data);
-        console.log(data['Monthly Adjusted Time Series']);
-        for(var row in data['Monthly Adjusted Time Series']){
+    client.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol="+ticker+"&apikey="+apikey, function (data, response) {
 
+      var daily = data['Monthly Adjusted Time Series'];
+      if(daily){
+        var list_of_list = [];
+        for(var row in daily){
+          list_of_list.push([
+            daily[row]['1. open'],
+            daily[row]['2. high'],
+            daily[row]['3. low'],
+            daily[row]['4. close'],
+            daily[row]['5. adjusted close'],
+            daily[row]['6. volume'],
+            daily[row]['7. dividend amount']
+          ]);
         }
 
+        var output = tf.tensor2d(list_of_list);
+        resolve(output);
+      }else{
+        reject(Error(data['Information']));
+      }
     });
 
-    // return {
-    //   xs,
-    //   ys: ysNormalized
-    // };
-  })
+  });
 }

@@ -146,9 +146,24 @@ async function learnCoefficients() {
 
   predictionsBefore.dispose();
   predictionsAfter.dispose();
-
-  loadFromAlpha(100, trueCoefficients);
 }
 
-
 learnCoefficients();
+
+
+async function predictMarket() {
+
+  loadFromAlpha('MSFT','demo').then(function(data) {
+    console.log(data);
+    const model = tf.sequential();
+    model.add(tf.layers.lstm({
+      units: 50,
+      recurrentInitializer: 'glorotNormal',
+      inputShape: data.shape
+    }));
+  }, function(err) {
+    console.log(err);
+  });
+
+}
+predictMarket();
