@@ -1,5 +1,5 @@
 {
-  "name": "tfjs-examples-micro",
+  "name": "tfjs-examples-polynomial-regression-core",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -8,13 +8,25 @@
   "engines": {
     "node": ">=8.9.0"
   },
-  "dependencies": { },
+  "dependencies": {
+    "@tensorflow/tfjs": "^0.13.0",
+    "node-rest-client": "^3.1.0",
+    "vega-embed": "^3.2.0",
+    "vega-lite": "^2.3.1"
+  },
   "scripts": {
-    "watch": "npm run build && node_modules/http-server/bin/http-server dist -p 1234 ",
-    "build": "mkdir -p dist/ && cp index.html dist/ && cp index.js dist/"
+    "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --open",
+    "build": "cross-env NODE_ENV=production parcel build index.html --no-minify --public-url ./",
+    "link-local": "yalc link"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "~6.23.0",
+    "babel-polyfill": "~6.26.0",
+    "babel-preset-env": "~1.6.1",
     "clang-format": "~1.2.2",
-    "http-server": "~0.10.0"
+    "cross-env": "^5.1.6",
+    "parcel-bundler": "~1.8.1",
+    "regenerator-runtime": "^0.12.1",
+    "yalc": "~1.0.0-pre.22"
   }
 }

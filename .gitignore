@@ -6,3 +6,4 @@ tfjs-stocks/node_modules/
 tfjs-stocks/dist/
 tfjs-stocks/npm-debug.log
 tfjs-stocks/.DS_Store
+tfjs-stocks/.cache
