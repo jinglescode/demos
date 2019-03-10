@@ -1,5 +1,6 @@
 
-let input_dataset = [], result = [];
+let input_dataset = []
+let result = [];
 let data_raw = []; let sma_vec = [];
 let window_size = 50;
 let trainingsize = 70;
@@ -144,7 +145,7 @@ function displayTrainingData(){
   data_output = "<table class='table table-responsive table-sm'>" +
   "<thead><tr><th scope='col'>#</th>" +
   "<th scope='col'>Input (X)</th>" +
-  "<th scope='col'>Output (Y)</th></thead>" +
+  "<th scope='col'>Label (Y)</th></thead>" +
   "<tbody>" + data_output + "</tbody>" +
   "</table>";
 
@@ -174,7 +175,6 @@ async function onClickTrainModel(){
   let learningrate = parseFloat(document.getElementById("input_learningrate").value);
   let n_hiddenlayers = parseInt(document.getElementById("input_hiddenlayers").value);
 
-
   let callback = function(epoch, log) {
     let logHtml = document.getElementById("div_traininglog").innerHTML;
     logHtml = "<div>Epoch: " + (epoch + 1) + " (of "+ n_epochs +"), loss: " + log.loss + "</div>" + logHtml;
@@ -187,7 +187,6 @@ async function onClickTrainModel(){
 
     let graph_plot = document.getElementById('div_linegraph_trainloss');
     Plotly.newPlot( graph_plot, [{x: Array.from({length: epoch_loss.length}, (v, k) => k+1), y: epoch_loss, name: "Loss" }], { margin: { t: 0 } } );
-
   }
 
   result = await trainModel(inputs, outputs, trainingsize, window_size, n_epochs, learningrate, n_hiddenlayers, callback);
@@ -212,19 +211,9 @@ function onClickPredict() {
   });
   let outputs = sma_vec.map(function(outp_f) { return outp_f['avg']; });
 
-  // let n_items = parseInt(document.getElementById("n-items-percent").value);
   let outps = outputs.slice(Math.floor(trainingsize / 100 * outputs.length), outputs.length);
 
-  let pred_vals = Predict(inputs, trainingsize, result['model']);
-
-  // let data_output = "";
-  // for (let index = 0; index < pred_vals.length; index++) {
-  //     data_output += "<tr><td>" + (index + 1) + "</td><td>" +
-  //  outps[index] + "</td><td>" + pred_vals[index] + "</td></tr>";
-  // }
-  //
-  // document.getElementById("div_predict_table").innerHTML = "<table class=\"table\"><thead><tr><th scope=\"col\">#</th><th scope=\"col\">Real Value</th> \
-  // <th scope=\"col\">Predicted Value</th></thead><tbody>" + data_output + "</tbody></table>";
+  let pred_vals = makePredictions(inputs, trainingsize, result['model']);
 
   let timestamps_a = data_raw.map(function (val) { return val['timestamp']; });
   let timestamps_b = data_raw.map(function (val) {
@@ -258,7 +247,6 @@ function ComputeSMA(time_s, window_size)
 
           avg_prev = curr_avg;
      }
-
      return r_avgs;
 }
 

@@ -24,7 +24,7 @@
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Stocks Prediction (TFJS)</a>
+    <!-- <a class="navbar-brand">Stocks Prediction (TFJS)</a> -->
 
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -42,17 +42,29 @@
   </nav>
 
   <div class="jumbotron">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <h1 class="display-4">Time Series Forcasting with TensorFlow.js</h1>
+    <p class="lead">
+      Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework
+    </p>
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <p>
+      As changes in stocks prices on the market are dynamic and affected by multiple factors, which is typically unpredictable, this service is by no means a trading prediction tool. This site demostrates time series forecasting to predict future values based on historical data from the past.
+    </p>
+    <p>
+      You can either begin by scrolling down each step or hit the <i>Load Demo</i> button.
+    </p>
+    <a class="btn btn-primary btn-lg" role="button" onclick="demo()">Load Demo</a>
   </div>
 
 
   <div class="jumbotron" style="background-color:#ffebee">
     <h1 class="display-4">Get Data</h1>
-    <p class="lead">I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>.</p>
+    <p class="lead">
+
+    </p>
+    <p>
+      I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>. This API returns 20 years of chronological data on a certain company stocks prices. To prepare our training data, each value in this set is actually a closing stocks price of a certain date.
+    </p>
 
     <div class="container">
 
@@ -108,7 +120,13 @@
 
   <div class="jumbotron" style="background-color:#e3f2fd">
     <h1 class="display-4">Simple Moving Average</h1>
-    <p class="lead">bla bla</p>
+    <p class="lead"></p>
+    <p>
+      Simple Moving Average (SMA) is the data analysis indicator that describes the general behavior of stocks market for a certain period of time. To reveal the stocks market trends, during the analysis, we typically combine both the graph of stocks prices and its moving average. The type of moving average and its period is typically called a length or just a "time window". The size of time window is selected experimentally.
+    </p>
+    <p>
+      Before creating and training a neural network to predict future moving average values, we need to generate some portion of dataset and train our neural network on the dataset being generated. <i>Input</i> is the set of prices within a single time window, and <i>Label</i> is the computed moving average of those prices.
+    </p>
 
     <div class="container">
 
@@ -159,7 +177,13 @@
 
   <div class="jumbotron" style="background-color:#e8f5e9">
     <h1 class="display-4">Train Model</h1>
-    <p class="lead">bla bla</p>
+    <p class="lead"></p>
+    <p>
+      Next, create and deploy a model for time-series prediction, based on the recurrent neural network (RNN) that uses long short-term memory (LSTM) cells to predict the future values of simple moving average (SMA). For that purpose we will use TensorFlow.js framework.
+    </p>
+    <p>
+
+    </p>
 
     <div class="container">
 
@@ -226,8 +250,11 @@
 
 
   <div class="jumbotron" style="background-color:#fffde7">
-    <h1 class="display-4">Predict</h1>
-    <p class="lead">bla bla</p>
+    <h1 class="display-4">Prediction</h1>
+    <p class="lead"></p>
+    <p>
+      After training our model, it's time to use it for predicting future values, for our case, its the moving average.
+    </p>
 
     <div class="container">
 
