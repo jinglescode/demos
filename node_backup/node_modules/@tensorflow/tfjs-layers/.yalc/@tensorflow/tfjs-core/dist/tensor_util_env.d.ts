@@ -1,0 +1,4 @@
+import { Tensor } from './tensor';
+import { DataType, TensorLike } from './types';
+export declare function convertToTensor<T extends Tensor>(x: T | TensorLike, argName: string, functionName: string, dtype?: DataType): T;
+export declare function convertToTensorArray<T extends Tensor>(arg: T[] | TensorLike[], argName: string, functionName: string): T[];

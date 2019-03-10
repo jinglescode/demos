@@ -1,0 +1,12 @@
+import { io } from '@tensorflow/tfjs-core';
+import { ContainerConfig } from './engine/container';
+import { InputConfig } from './engine/input_layer';
+import { SymbolicTensor } from './engine/topology';
+import { Model } from './engine/training';
+import { Sequential, SequentialConfig } from './models';
+import { BaseCallbackConstructor } from './base_callbacks';
+export declare function model(config: ContainerConfig): Model;
+export declare function sequential(config?: SequentialConfig): Sequential;
+export declare function loadModel(pathOrIOHandler: string | io.IOHandler, strict?: boolean): Promise<Model>;
+export declare function input(config: InputConfig): SymbolicTensor;
+export declare function registerCallbackConstructor(verbosityLevel: number, callbackConstructor: BaseCallbackConstructor): void;
