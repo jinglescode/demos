@@ -57,23 +57,38 @@ export function loadFromAlpha(ticker, apikey) {
     var client = new Client();
     client.get("https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol="+ticker+"&apikey="+apikey, function (data, response) {
 
-      var daily = data['Monthly Adjusted Time Series'];
-      if(daily){
-        var list_of_list = [];
-        for(var row in daily){
-          list_of_list.push([
-            daily[row]['1. open'],
-            daily[row]['2. high'],
-            daily[row]['3. low'],
-            daily[row]['4. close'],
-            daily[row]['5. adjusted close'],
-            daily[row]['6. volume'],
-            daily[row]['7. dividend amount']
-          ]);
+      var monthly = data['Monthly Adjusted Time Series'];
+      if(monthly){
+        var X = [];
+        var Y = [];
+        var data = [];
+
+        for(var row in monthly){
+          // X.push([
+          //   monthly[row]['1. open'],
+          //   monthly[row]['2. high'],
+          //   monthly[row]['3. low'],
+          //   monthly[row]['4. close'],
+          //   monthly[row]['5. adjusted close'],
+          //   monthly[row]['6. volume'],
+          //   monthly[row]['7. dividend amount']
+          // ]);
+          // Y.push(
+          //   monthly[row]['1. open']
+          // );
+
+          data.push({
+            id: row,
+            price: monthly[row]['1. open']
+          })
         }
 
-        var output = tf.tensor2d(list_of_list);
-        resolve(output);
+        var data = data.reverse();
+
+        // var X = tf.tensor2d(X);
+        // var Y = tf.tensor2d(Y);
+        // resolve([X, Y]);
+        resolve(data);
       }else{
         reject(Error(data['Information']));
       }
