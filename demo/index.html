@@ -11,8 +11,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-  <script src="./js/model.js"></script>
-  <script src="./js/index.js"></script>
+  <script src="./model.js"></script>
+  <script src="./index.js"></script>
 
   <style>
     .row {
@@ -51,6 +51,10 @@
       As changes in stocks prices on the market are dynamic and affected by multiple factors, which is typically unpredictable, this service is by no means a trading prediction tool. This site demostrates time series forecasting to predict future values based on historical data from the past.
     </p>
     <p>
+
+    </p>
+    <p>
+      In this site, I will use Recurrent Neural Network predict simple moving average.
       You can either begin by scrolling down each step or hit the <i>Load Demo</i> button.
     </p>
     <a class="btn btn-primary btn-lg" role="button" onclick="demo()">Load Demo</a>
@@ -63,7 +67,10 @@
 
     </p>
     <p>
-      I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>. This API returns 20 years of chronological data on a certain company stocks prices. To prepare our training data, each value in this set is actually a closing stocks price of a certain date.
+      I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>. This API returns 20 years of chronological data on a certain company stocks prices. To prepare our training  for our model, each value in this set is actually a closing stocks price on a certain date.
+    </p>
+    <p>
+      You can use <i>demo</i> API key to pull <i>MSFT</i> data or <a href="https://www.alphavantage.co/support/#api-key" target="_blank">get your own API key</a> for other stocks.
     </p>
 
     <div class="container">
