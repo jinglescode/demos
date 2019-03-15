@@ -38,9 +38,10 @@ async function trainModel(inputs, outputs, trainingsize, window_size, n_epochs, 
 
   model.add(tf.layers.dense({units: output_layer_neurons, inputShape: [output_layer_shape]}));
 
-  const opt_adam = tf.train.adam(learning_rate);
-
-  model.compile({ optimizer: opt_adam, loss: 'meanSquaredError'});
+  model.compile({
+    optimizer: tf.train.adam(learning_rate),
+    loss: 'meanSquaredError'
+  });
 
   const hist = await model.fit(xs, ys,
     { batchSize: rnn_batch_size, epochs: n_epochs, callbacks: {

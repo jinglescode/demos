@@ -1,4 +1,3 @@
-
 let input_dataset = []
 let result = [];
 let data_raw = []; let sma_vec = [];
@@ -15,8 +14,6 @@ function onClickFetchData(){
 
   let ticker = document.getElementById("input_ticker").value;
   let apikey = document.getElementById("input_apikey").value;
-
-  // getAlphavantageData(ticker,apikey);
 
   $("#btn_fetch_data").hide();
   $("#load_fetch_data").show();
@@ -177,13 +174,16 @@ async function onClickTrainModel(){
 
   let callback = function(epoch, log) {
     let logHtml = document.getElementById("div_traininglog").innerHTML;
-    logHtml = "<div>Epoch: " + (epoch + 1) + " (of "+ n_epochs +"), loss: " + log.loss + "</div>" + logHtml;
-    document.getElementById("div_traininglog").innerHTML = logHtml;
-
-    document.getElementById("div_training_progressbar").style.width = Math.ceil(((epoch + 1) * (100 / n_epochs))).toString() + "%";
-    document.getElementById("div_training_progressbar").innerHTML = Math.ceil(((epoch + 1) * (100 / n_epochs))).toString() + "%";
+    logHtml = "<div>Epoch: " + (epoch + 1) + " (of "+ n_epochs +")" +
+      ", loss: " + log.loss +
+      // ", difference: " + (epoch_loss[epoch_loss.length-1] - log.loss) +
+      "</div>" + logHtml;
 
     epoch_loss.push(log.loss);
+
+    document.getElementById("div_traininglog").innerHTML = logHtml;
+    document.getElementById("div_training_progressbar").style.width = Math.ceil(((epoch + 1) * (100 / n_epochs))).toString() + "%";
+    document.getElementById("div_training_progressbar").innerHTML = Math.ceil(((epoch + 1) * (100 / n_epochs))).toString() + "%";
 
     let graph_plot = document.getElementById('div_linegraph_trainloss');
     Plotly.newPlot( graph_plot, [{x: Array.from({length: epoch_loss.length}, (v, k) => k+1), y: epoch_loss, name: "Loss" }], { margin: { t: 0 } } );
@@ -244,7 +244,6 @@ function ComputeSMA(time_s, window_size)
                curr_avg += time_s[k]['price'] / window_size;
 
           r_avgs.push({ set: time_s.slice(i, i + window_size), avg: curr_avg });
-
           avg_prev = curr_avg;
      }
      return r_avgs;
@@ -309,6 +308,19 @@ function demo(){
   Plotly.newPlot( graph_plot4, [{ x: timestamps_a, y: prices, name: "Actual Price" }], { margin: { t: 0 } } );
   Plotly.plot( graph_plot4, [{ x: timestamps_b, y: sma, name: "Training Label (SMA)" }], { margin: { t: 0 } } );
   Plotly.plot( graph_plot4, [{ x: timestamps_c, y: pred_vals, name: "Predicted" }], { margin: { t: 0 } } );
-
-
 }
+
+
+// function callGoogleAPI(text){
+//   $.ajax({
+//     type: "POST",
+//     url: "https://cxl-services.appspot.com/proxy?url=https%3A%2F%2Flanguage.googleapis.com%2Fv1beta2%2Fdocuments%3AanalyzeEntitySentiment",
+//     data: JSON.stringify({"document":{"type":"PLAIN_TEXT","content":text},"encodingType":"UTF16"}),
+//     success: function(data){
+//       console.log(data);
+//     },
+//     contentType : 'application/json'
+//   });
+// }
+// callGoogleAPI("Microsoft Corporation (MS) is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports and sells computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers.");
+// callGoogleAPI("Marvel's The Avengers[6] (classified under the name Marvel Avengers Assemble in the United Kingdom and Ireland),[3][7] or simply The Avengers, is a 2012 American superhero film based on the Marvel Comics superhero team of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.[N 1] It is the sixth film in the Marvel Cinematic Universe (MCU). The film was written and directed by Joss Whedon and features an ensemble cast that includes Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, and Jeremy Renner as the titular Avengers team, alongside Tom Hiddleston, Clark Gregg, Cobie Smulders, Stellan Skarsgård, and Samuel L. Jackson. In the film, Nick Fury, director of the spy agency S.H.I.E.L.D., recruits Tony Stark, Steve Rogers, Bruce Banner, and Thor to form a team that must stop Thor's brother Loki from subjugating Earth.");

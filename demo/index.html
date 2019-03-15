@@ -48,29 +48,50 @@
     </p>
     <hr class="my-4">
     <p>
-      As changes in stocks prices on the market are dynamic and affected by multiple factors, which is typically unpredictable, this service is by no means a trading prediction tool. This site demonstrates time series forecasting to predict future values based on historical data from the past.
+      <!-- [write about the purpose for this experiment] -->
+      As machine learning is very popular in these days, some people even thinks of it as a magic crystal ball, expect it to tell us what will happen in the future. This experiment uses artificial neural networks to reveal stocks market trends and demonstrates time series forecasting to predict future stocks prices based on historical data from the past.
     </p>
     <p>
-
+      <!-- [disclaimer] -->
+      As changes in stocks prices on the market are dynamic and affected by multiple factors, which is typically unpredictable, this experiment is 100% educational and is by no means a trading prediction tool.
     </p>
     <p>
-      In this site, I will use Recurrent Neural Network predict simple moving average.
-      You can either begin by scrolling down each step or hit the <i>Load Demo</i> button.
+      <!-- [how to use this experiment, outline] -->
+      There are 4 parts in this experiment:
+      <ol>
+        <li>get historical stocks prices data</li>
+        <li>prepare training data for our neural network model</li>
+        <li>training the neural network</li>
+        <li>do some prediction</li>
+      </ol>
+      You can either begin by scrolling down to explore each step or hit the <i>Load Snapshot Demo</i> button.
     </p>
-    <a class="btn btn-primary btn-lg" role="button" onclick="demo()">Load Demo</a>
+    <button class="btn btn-primary" type="button" onclick="demo()">
+      Load Snapshot Demo
+    </button>
   </div>
 
 
   <div class="jumbotron" style="background-color:#ffebee">
-    <h1 class="display-4">Get Data</h1>
+    <h1 class="display-4">Get Stocks Data</h1>
     <p class="lead">
 
     </p>
     <p>
-      I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>. This API returns 20 years of chronological data on a certain company stocks prices. To prepare our training  for our model, each value in this set is actually a closing stocks price on a certain date.
+      <!-- [purpose of this step, fun for the reader] -->
+      Before we can train our neural network and make any prediction, we need data. The type of data we are looking for is time series, a sequence of numbers, ordered chronologically. I fetch stocks data from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>, this API returns 20 years of chronological data on a certain company stocks prices. The API returns the following fields:
+      <ol>
+        <li>open price</li>
+        <li>highest price of that day</li>
+        <li>lowest price of that day</li>
+        <li>closing price</li>
+        <li>volume</li>
+      </ol>
+      To prepare training dataset for our neural network, I picked closing stocks price. This also means that I am predicting future closing price.
     </p>
     <p>
-      You can use <i>demo</i> API key to pull <i>MSFT</i> data or <a href="https://www.alphavantage.co/support/#api-key" target="_blank">get your own API key</a> for other stocks.
+      <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+      You can use <i>demo</i> API key to fetch <i>Microsoft Corporation</i> prices or <a href="https://www.alphavantage.co/support/#api-key" target="_blank">get your own API key</a> for other stocks.
     </p>
 
     <div class="container">
@@ -129,21 +150,28 @@
     <h1 class="display-4">Simple Moving Average</h1>
     <p class="lead"></p>
     <p>
-      Simple Moving Average (SMA) is the data analysis indicator that describes the general behavior of stocks market for a certain period of time. To reveal the stocks market trends, during the analysis, we typically combine both the graph of stocks prices and its moving average. The type of moving average and its period is typically called a length or just a "time window". The size of time window is selected experimentally.
+      <!-- [purpose of this step, fun for the reader] -->
+      For this experiment, we are doing <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank">supervised learning</a>, which means feeding data to the neural network and it learns by mapping input data to the output label. One way to prepare the training dataset is to extract Simple Moving Average from that time series data.
     </p>
     <p>
-      Before creating and training a neural network to predict future moving average values, we need to generate some portion of dataset and train our neural network on the dataset being generated. <i>Input</i> is the set of prices within a single time window, and <i>Label</i> is the computed moving average of those prices.
+      Simple Moving Average (SMA) is a way to identify trends direction for a certain period of time, by looking at the average of all the values within that time window. The number of prices in a time window is selected experimentally. So let's say the closing prices for past 5 days were 13, 15, 14, 16, 17, the SMA would be (13+15+14+16+17)/5 = 15. So the <i>input</i> for our training dataset is the set of prices within a single time window, and <i>label</i> is the computed moving average of those prices. <a href="https://www.investopedia.com/terms/s/sma.asp" target="_blank">Learn more about SMA</a>.
     </p>
 
     <div class="container">
 
       <div class="row" id="div_container_getsmafirst">
-        <div class="col-sm-6">
-          <p>Fetch data first</p>
+        <div class="col-sm-12">
+          <p>But first, fetch stocks data from the previous step.</p>
         </div>
       </div>
 
       <div class="row" id="div_container_getsma" style="display:none">
+        <div class="col-sm-12">
+          <p>
+            <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+            Let's generate the training dataset, hit on the <i>Compute SMA and Draw Chart</i> button to generate the training data for the neural network.
+          </p>
+        </div>
         <div class="col-sm-6">
           <div class="form-group">
             <label for="input_windowsize">Window Size</label>
@@ -183,25 +211,47 @@
 
 
   <div class="jumbotron" style="background-color:#e8f5e9">
-    <h1 class="display-4">Train Model</h1>
+    <h1 class="display-4">Train Neural Network</h1>
     <p class="lead"></p>
     <p>
-      Next, create and deploy a model for time-series prediction, based on the recurrent neural network (RNN) that uses long short-term memory (LSTM) cells to predict the future values of simple moving average (SMA). For that purpose we will use TensorFlow.js framework.
+      <!-- [purpose of this step, fun for the reader] -->
+      Now with the training data, we are ready to create a model for time series prediction, to achieve this we will use <a href="https://js.tensorflow.org/" target="
+      ">TensorFlow.js</a> framework.
     </p>
     <p>
-
+      <a href="https://js.tensorflow.org/api/latest/#sequential" target="_blank">Sequential model</a> is selected which simply connects each layer and pass the data from input to the output during the training process. In order for the model to learn time series data which are sequential, <a href="https://js.tensorflow.org/api/latest/#layers.rnn" target="_blank">recurrent neural network (RNN) layer</a> is created and a number of <a href="https://js.tensorflow.org/api/latest/#layers.lstmCell" target="_blank">LSTM cells</a> are added to the RNN.
+    </p>
+    <p>
+      The model will be trained using <a href="https://js.tensorflow.org/api/latest/#train.adam" target="_blank">Adam</a> (<a href="https://arxiv.org/abs/1412.6980" target="_blank">read more</a>), a popular optimisation algorithm for machine learning.
+      <a href="https://js.tensorflow.org/api/latest/#losses.meanSquaredError" target="_blank">Root-means-squared error</a> which determine the difference between predicted values and the actual values, so model is able to learn by minimsing the error during the training process.
+    </p>
+    <p>
+      <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+      These are the hyperparameters (parameters used in the training process) available for tweaking:
+      <ol>
+        <li>Training Dataset Size (%): the amount of data used for training, and remaining data will be used for prediction</li>
+        <li>Epochs: number of times the dataset is used to train the model (<a href="https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/" target="_blank">learn more</a>)</li>
+        <li>Learning Rate: amount of change in the weights during training in each step (<a href="https://machinelearningmastery.com/learning-rate-for-deep-learning-neural-networks/" target="_blank">learn more</a>)</li>
+        <li>Hidden LSTM Layers: to increase the model complexity to learn in higher dimensional space (<a href="https://machinelearningmastery.com/how-to-configure-the-number-of-layers-and-nodes-in-a-neural-network/" target="_blank">learn more</a>)</li>
+      </ol>
     </p>
 
     <div class="container">
 
       <div class="row" id="div_container_trainfirst">
-        <div class="col-sm-6">
-          <p>SMA first</p>
+        <div class="col-sm-12">
+          <p>Need training data, explore the previous section to prepare training data.</p>
         </div>
       </div>
 
       <div id="div_container_train" style="display:none">
-        <div class="row" >
+        <div class="row">
+          <div class="col-sm-12">
+            <p>
+              <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+              You may tweak the hyperparameters and then hit the <i>Begin Training Model</i> button to train the model.
+            </p>
+          </div>
           <div class="col-sm">
             <div class="form-group">
               <label for="input_trainingsize">Training Dataset Size (%)</label>
@@ -220,12 +270,13 @@
             <div class="form-group">
               <label for="input_learningrate">Learning Rate</label>
               <input type="number" class="form-control" id="input_learningrate" placeholder="a decimal'" value="0.01">
+              <small class="form-text text-muted">Typically range between 0.01 and 0.1</small>
             </div>
             <button class="btn btn-primary" id="btn_draw_trainmodel" onclick="onClickTrainModel()">Begin Training Model</button>
           </div>
           <div class="col-sm">
             <div class="form-group">
-              <label for="input_hiddenlayers">Hidden Layers</label>
+              <label for="input_hiddenlayers">Hidden LSTM Layers</label>
               <input type="number" class="form-control" id="input_hiddenlayers" placeholder="a number'" value="4">
               <small class="form-text text-muted">Number of LSTM layers</small>
             </div>
@@ -260,18 +311,26 @@
     <h1 class="display-4">Prediction</h1>
     <p class="lead"></p>
     <p>
-      After training our model, it's time to use it for predicting future values, for our case, its the moving average.
+      <!-- [purpose of this step, fun for the reader] -->
+      After training our model, it's time to use it for predicting future values, for our case, its the moving average. We actually using the remaining data for prediction, this allow us to see how closely our predicted values are compared to the actual values.
     </p>
+
 
     <div class="container">
 
       <div class="row" id="div_container_predictfirst">
-        <div class="col-sm-6">
-          <p>Train model first</p>
+        <div class="col-sm-12">
+          <p>Require a model to perform prediction, train model first.</p>
         </div>
       </div>
 
       <div class="row" id="div_container_predict" style="display:none">
+        <div class="col-sm-12">
+          <p>
+            <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+            Hit the <i>Make Prediction</i> button to see how this model performs. Whohoo!
+          </p>
+        </div>
         <div class="col-sm-6">
           <button class="btn btn-primary" id="btn_makeprediction" onclick="onClickPredict()">Make Prediction</button>
           <div class="spinner-border" id="load_predicting" style="display:none"></div>
