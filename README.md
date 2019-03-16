@@ -2,7 +2,7 @@
 
 Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework
 
-Machine learning is becoming increasingly popular these days, with a growing number of the world’s population thinks it is a magic crystal ball: predicting when and what will happen in the future. This experiment uses artificial neural networks to reveal stock market trends and demonstrates the ability of time series forecasting to predict future stock prices based on past historical data.
+Machine learning is becoming increasingly popular these days and a growing number of the world’s population see it is as a magic crystal ball: predicting when and what will happen in the future. This experiment uses artificial neural networks to reveal stock market trends and demonstrates the ability of time series forecasting to predict future stock prices based on past historical data.
 
 <b>Disclaimer</b>: As stock markets fluctuation are dynamic and unpredictable owing to multiple factors, this experiment is 100% educational and by no means a trading prediction tool.
 
@@ -37,7 +37,7 @@ Now with the training data, we are ready to create a model for time series predi
 
 Sequential model is selected which simply connects each layer and pass the data from input to the output during the training process. In order for the model to learn time series data which are sequential, recurrent neural network (RNN) layer is created and a number of LSTM cells are added to the RNN.
 
-The model will be trained using Adam (read more), a popular optimisation algorithm for machine learning. Root-means-squared error which determine the difference between predicted values and the actual values, so model is able to learn by minimsing the error during the training process.
+The model will be trained using Adam (read more), a popular optimisation algorithm for machine learning. Root-means-squared error which determine the difference between predicted values and the actual values, so model is able to learn by minimising the error during the training process.
 
 These are the hyperparameters (parameters used in the training process) available for tweaking:
 - Training Dataset Size (%): the amount of data used for training, and remaining data will be used for prediction

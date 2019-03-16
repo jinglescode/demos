@@ -32,7 +32,7 @@
       <div class="divider"></div>
       <p>
         <!-- [write about the purpose for this experiment] -->
-        Machine learning is becoming increasingly popular these days, with a growing number of the world’s population thinks it is a magic crystal ball: predicting when and what will happen in the future. This experiment uses artificial neural networks to reveal stock market trends and demonstrates the ability of time series forecasting to predict future stock prices based on past historical data.
+        Machine learning is becoming increasingly popular these days and a growing number of the world’s population see it is as a magic crystal ball: predicting when and what will happen in the future. This experiment uses artificial neural networks to reveal stock market trends and demonstrates the ability of time series forecasting to predict future stock prices based on past historical data.
       </p>
       <p>
         <!-- [disclaimer] -->
@@ -242,7 +242,7 @@
         <a href="https://js.tensorflow.org/api/latest/#sequential" target="_blank">Sequential model</a> is selected which simply connects each layer and pass the data from input to the output during the training process. In order for the model to learn time series data which are sequential, <a href="https://js.tensorflow.org/api/latest/#layers.rnn" target="_blank">recurrent neural network (RNN) layer</a> layer is created and a number of <a href="https://js.tensorflow.org/api/latest/#layers.lstmCell" target="_blank">LSTM cells</a> are added to the RNN.
       </p>
       <p>
-        The model will be trained using <a href="https://js.tensorflow.org/api/latest/#train.adam" target="_blank">Adam</a> (<a href="https://arxiv.org/abs/1412.6980" target="_blank">read more</a>), a popular optimisation algorithm for machine learning. <a href="https://js.tensorflow.org/api/latest/#losses.meanSquaredError" target="_blank">Root-means-squared error</a> which determine the difference between predicted values and the actual values, so model is able to learn by minimsing the error during the training process.
+        The model will be trained using <a href="https://js.tensorflow.org/api/latest/#train.adam" target="_blank">Adam</a> (<a href="https://arxiv.org/abs/1412.6980" target="_blank">read more</a>), a popular optimisation algorithm for machine learning. <a href="https://js.tensorflow.org/api/latest/#losses.meanSquaredError" target="_blank">Root-means-squared error</a> which determine the difference between predicted values and the actual values, so model is able to learn by minimising the error during the training process.
       </p>
       <p>
         <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
@@ -375,6 +375,19 @@
 
     </div>
   </div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <p class="grey-text text-lighten-5">
+            <a class="grey-text text-lighten-5" target="_blank" href="https://github.com/lonedune/tfjs-stocks">View Code on GitHub</a> |
+            <a class="grey-text text-lighten-5" target="_blank" href="https://www.linkedin.com/in/jingles/">Reach me on LinkedIn</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
