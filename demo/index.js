@@ -315,18 +315,3 @@ function demo(){
   Plotly.plot( graph_plot4, [{ x: timestamps_b, y: sma, name: "Training Label (SMA)" }], { margin: { t: 0 } } );
   Plotly.plot( graph_plot4, [{ x: timestamps_c, y: pred_vals, name: "Predicted" }], { margin: { t: 0 } } );
 }
-
-
-// function callGoogleAPI(text){
-//   $.ajax({
-//     type: "POST",
-//     url: "https://cxl-services.appspot.com/proxy?url=https%3A%2F%2Flanguage.googleapis.com%2Fv1beta2%2Fdocuments%3AanalyzeEntitySentiment",
-//     data: JSON.stringify({"document":{"type":"PLAIN_TEXT","content":text},"encodingType":"UTF16"}),
-//     success: function(data){
-//       console.log(data);
-//     },
-//     contentType : 'application/json'
-//   });
-// }
-// callGoogleAPI("Microsoft Corporation (MS) is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports and sells computer software, consumer electronics, personal computers, and related services. Its best known software products are the Microsoft Windows line of operating systems, the Microsoft Office suite, and the Internet Explorer and Edge web browsers.");
-// callGoogleAPI("Marvel's The Avengers[6] (classified under the name Marvel Avengers Assemble in the United Kingdom and Ireland),[3][7] or simply The Avengers, is a 2012 American superhero film based on the Marvel Comics superhero team of the same name, produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures.[N 1] It is the sixth film in the Marvel Cinematic Universe (MCU). The film was written and directed by Joss Whedon and features an ensemble cast that includes Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, and Jeremy Renner as the titular Avengers team, alongside Tom Hiddleston, Clark Gregg, Cobie Smulders, Stellan Skarsgård, and Samuel L. Jackson. In the film, Nick Fury, director of the spy agency S.H.I.E.L.D., recruits Tony Stark, Steve Rogers, Bruce Banner, and Thor to form a team that must stop Thor's brother Loki from subjugating Earth.");
