@@ -2,8 +2,3 @@
 .DS_Store
 pull_git.sh
 push_git.sh
-node_backup/node_modules/
-node_backup/dist/
-node_backup/npm-debug.log
-node_backup/.DS_Store
-node_backup/.cache
