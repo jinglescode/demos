@@ -258,6 +258,9 @@ function ComputeSMA(time_s, window_size)
 
 function demo(){
 
+  $("#btn_load_demo").hide();
+  $("#div_demo_loaded").show();
+
   // dataset
   $("#div_container_linegraph").show();
   $("#div_container_getdata").hide();

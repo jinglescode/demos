@@ -49,9 +49,12 @@
         </ol>
         Begin by scrolling down to explore each step or hit the <i>Load Snapshot Demo</i> button!
       </p>
-      <button class="waves-effect waves-light btn" type="button" onclick="demo()">
+      <button class="waves-effect waves-light btn" type="button" onclick="demo()" id="btn_load_demo">
         Load Snapshot Demo
       </button>
+      <div id="div_demo_loaded" style="display:none">
+        Demo loaded, scroll down to explore.
+      </div>
     </div>
   </div>
 
@@ -146,7 +149,7 @@
 
       <div class="row" id="div_container_linegraph" style="display:none">
         <div class="col s12">
-          <div class="card">
+          <div class="card z-depth-5">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" id="div_linegraph_data_title">Card Title<</span>
               <div >
@@ -206,7 +209,7 @@
 
       <div class="row" id="div_container_sma" style="display:none">
         <div class="col s12">
-          <div class="card">
+          <div class="card z-depth-5">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" id="div_linegraph_sma_title"></span>
                 <div id="div_linegraph_sma" style="width:100%; height:350px;"></div>
@@ -216,7 +219,7 @@
       </div>
       <div class="row" id="div_container_trainingdata" style="display:none">
         <div class="col s12">
-          <div class="card">
+          <div class="card z-depth-5">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" id="div_linegraph_data_title">Training Data (top 25 rows)</span>
               <div class="table-responsive" id="div_trainingdata">
@@ -308,7 +311,7 @@
 
       <div class="row" id="div_container_training" style="display:none">
         <div class="col s12">
-          <div class="card">
+          <div class="card z-depth-5">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" id="div_linegraph_data_title">Training Model</span>
               <h6>Progress</h6>
@@ -364,7 +367,7 @@
       </div>
       <div class="row" id="div_container_predicting" style="display:none">
         <div class="col s12">
-          <div class="card">
+          <div class="card z-depth-5">
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4" id="div_predict_title">Predict Results</span>
               <div id="div_predict_graph"></div>
