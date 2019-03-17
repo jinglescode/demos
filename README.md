@@ -19,7 +19,7 @@ The API yields the following fields:
 - closing price
 - volume
 
-To prepare training dataset for our neural network, we will be using closing stocks price; which also means that we will be aiming to predict future closing price. You can choose other parameters which you are looking to make other predictions.
+To prepare training dataset for our neural network, we will be using closing stocks price; which also means that we will be aiming to predict future closing price. 
 
 
 ### Simple Moving Average
