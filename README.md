@@ -34,11 +34,9 @@ For example, let's assume the closing prices for past 5 days were 13, 15, 14, 16
 ### Train Neural Network
 Now that you have the training data, it is time to create a model for time series prediction, to achieve this we will use TensorFlow.js framework.
 
-Now with the training data, we are ready to create a model for time series prediction, to achieve this we will use TensorFlow.js framework.
-
 Sequential model is selected which simply connects each layer and pass the data from input to the output during the training process. In order for the model to learn time series data which are sequential, recurrent neural network (RNN) layer is created and a number of LSTM cells are added to the RNN.
 
-The model will be trained using Adam (read more), a popular optimisation algorithm for machine learning. Root-means-squared error which determine the difference between predicted values and the actual values, so model is able to learn by minimising the error during the training process.
+The model will be trained using Adam (read more), a popular optimisation algorithm for machine learning. Root mean square error which determine the difference between predicted values and the actual values, so model is able to learn by minimising the error during the training process.
 
 These are the hyperparameters (parameters used in the training process) available for tweaking:
 - Training Dataset Size (%): the amount of data used for training, and remaining data will be used for prediction

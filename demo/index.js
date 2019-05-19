@@ -6,8 +6,8 @@ let trainingsize = 70;
 let data_temporal_resolutions = 'Weekly';
 
 $(document).ready(function(){
-    $('select').formSelect();
-  });
+  $('select').formSelect();
+});
 
 
 function onClickChangeDataFreq(freq){
@@ -33,11 +33,7 @@ function onClickFetchData(){
 
   $.getJSON(requestUrl
     ,function(data){
-
       let message = "";
-
-      console.log(data);
-
       $("#div_container_linegraph").show();
 
       let daily = [];
@@ -48,7 +44,6 @@ function onClickFetchData(){
       }
 
       if(daily){
-
         let symbol = data['Meta Data']['2. Symbol'];
         let last_refreshed = data['Meta Data']['3. Last Refreshed'];
 
@@ -56,21 +51,11 @@ function onClickFetchData(){
 
         let index = 0;
         for(let date in daily){
-
           data_raw.push({ timestamp: date, price: parseFloat(daily[date]['4. close']) });
-
           index++;
         }
 
         data_raw.reverse();
-
-        // console.log("data_raw", data_raw);
-
-        // sma_vec = ComputeSMA(data_raw, window_size);
-        //
-        // console.log("sma_vec", sma_vec);
-
-        // displayGraph(data_raw);
 
         message = "Symbol: " + symbol + " (last refreshed " + last_refreshed + ")";
 
@@ -131,7 +116,6 @@ function onClickDisplaySMA(){
 
 
 function displayTrainingData(){
-
   $("#div_container_trainingdata").show();
 
   let set = sma_vec.map(function (val) { return val['set']; });
@@ -240,19 +224,18 @@ function onClickPredict() {
   $("#load_predicting").hide();
 }
 
-function ComputeSMA(time_s, window_size)
+function ComputeSMA(data, window_size)
 {
-     let r_avgs = [], avg_prev = 0;
-     for (let i = 0; i <= time_s.length - window_size; i++)
-     {
-     	  let curr_avg = 0.00, t = i + window_size;
-          for (let k = i; k < t && k <= time_s.length; k++)
-               curr_avg += time_s[k]['price'] / window_size;
-
-          r_avgs.push({ set: time_s.slice(i, i + window_size), avg: curr_avg });
-          avg_prev = curr_avg;
-     }
-     return r_avgs;
+  let r_avgs = [], avg_prev = 0;
+  for (let i = 0; i <= data.length - window_size; i++){
+    let curr_avg = 0.00, t = i + window_size;
+    for (let k = i; k < t && k <= data.length; k++){
+      curr_avg += data[k]['price'] / window_size;
+    }
+    r_avgs.push({ set: data.slice(i, i + window_size), avg: curr_avg });
+    avg_prev = curr_avg;
+  }
+  return r_avgs;
 }
 
 
