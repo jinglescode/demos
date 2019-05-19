@@ -7,6 +7,7 @@ Machine learning is becoming increasingly popular these days and a growing numbe
 <b>Disclaimer</b>: As stock markets fluctuation are dynamic and unpredictable owing to multiple factors, this experiment is 100% educational and by no means a trading prediction tool.
 
 [View Demo](https://lonedune.github.io/tfjs-stocks/demo/)
+[Read article on Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
 
 
 ### Get Stocks Data
@@ -19,7 +20,7 @@ The API yields the following fields:
 - closing price
 - volume
 
-To prepare training dataset for our neural network, we will be using closing stocks price; which also means that we will be aiming to predict future closing price. 
+To prepare training dataset for our neural network, we will be using closing stocks price; which also means that we will be aiming to predict future closing price.
 
 
 ### Simple Moving Average
