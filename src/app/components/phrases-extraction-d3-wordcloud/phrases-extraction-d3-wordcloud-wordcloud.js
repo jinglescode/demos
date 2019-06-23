@@ -15,7 +15,7 @@ export class D3WordcloucWordcloud {
     function drawWordCloud(word_count, div_id){
 
       var width = window.innerWidth - 200;// $(document).width();
-      var height = width * 0.75;//$(document).height();
+      var height = width * 0.5;//$(document).height();
       var word_entries = d3.entries(word_count);
 
       var xScale = d3.scale.linear()
