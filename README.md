@@ -2,9 +2,9 @@
 
 Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework.
 
-[Demo](https://lonedune.github.io/demos/tfjs-stocks/) |
-[Read article on Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201) |
-[Code](https://github.com/lonedune/demos/tree/master/src/app/components/tfjs-timeseries-stocks)
+[Demo](https://lonedune.github.io/demos/tfjs-timeseries-stocks/) |
+[Code](https://github.com/lonedune/demos/tree/master/src/app/components/tfjs-timeseries-stocks) |
+[Read article on Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
 
 ## Phrases Extraction And D3 Wordcloud
 
