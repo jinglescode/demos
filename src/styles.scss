@@ -1,0 +1,115 @@
+//**** theming ****//
+
+@import '~@angular/material/theming';
+/* // Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once! */
+@include mat-core();
+
+$candy-app-primary: mat-palette($mat-blue, A200, A100, A400);
+$candy-app-accent:  mat-palette($mat-light-blue, 100);
+
+/* // The warn palette is optional (defaults to red). */
+$candy-app-warn:    mat-palette($mat-red);
+
+/* // Create the theme object (a Sass map containing all of the palettes). */
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+/* // Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using. */
+@include angular-material-theme($candy-app-theme);
+
+
+//**** global CSS ****//
+body {
+  // font-family: Roboto, Arial, sans-serif;
+  // font-family: Google Sans,sans-serif;
+  font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, '.SFNSText-Regular', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #263238;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: #fafafa;
+}
+
+p, ol {
+  // font: 400 16px/24px Roboto,sans-serif;
+  margin-bottom: 1rem;
+  font-size: 15px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+a{
+  text-decoration: none;
+  color: #039be5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  /* margin: 20px 0 10px 0;
+  font-weight: 300;
+  line-height: 53px; */
+  // font-family: linea, avenir, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  color: #1D2129;
+  text-transform: capitalize;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 22px;
+}
+h3 {
+  font-size: 16px;
+}
+h4 {
+  font-size: 14px;
+}
+h5 {
+  font-size: 12px;
+}
+h6 {
+  font-size: 10px;
+}
+
+// h1 {
+//   // font: 400 32px/40px Google Sans,sans-serif;
+//   font-family: linea, avenir, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+//   letter-spacing: 0;
+//   margin: 0px 0 24px;
+// }
+//
+// h2 {
+//   border-bottom: 0;
+//   // font: 400 22px/30px Google Sans,sans-serif;
+//   font-family: linea, avenir, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+//   letter-spacing: 0;
+//   margin: 0px 0 24px;
+//   padding-bottom: 0;
+// }
+
+.mat-card {
+  margin-bottom: 30px;
+  color: #4B4F56;
+}
+
+.page-title {
+  // font: 400 44px/52px Google Sans,sans-serif;
+  font-family: linea, avenir, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  margin: 40px auto 20px;
+  min-width: 400px;
+  text-align: center;
+  width: 50%;
+}
+
+.page-subtitle {
+  margin: 0 auto 32px;
+  min-width: 400px;
+  width: 80%;
+  text-align: center;
+}

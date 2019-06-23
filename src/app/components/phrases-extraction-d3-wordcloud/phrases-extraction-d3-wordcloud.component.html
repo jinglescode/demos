@@ -1,0 +1,67 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Phrases extraction and D3 Wordcloud</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      100% JavaScript solution to extracting ngrams from text and display high frequency in beautiful D3 wordcloud. Phrases (ngrams) extraction are done inside <a href="https://github.com/lonedune/demos/blob/master/src/app/components/d3-wordcloud/d3-wordcloud-phrases.js" target="_blank">d3-wordcloud-phrases.js</a>, there are a few params which you could tweak and edit stopwords list. Adjustments to wordcloud can be found in <a href="https://github.com/lonedune/demos/blob/master/src/app/components/d3-wordcloud/d3-wordcloud-wordcloud.js" target="_blank">d3-wordcloud-wordcloud.js</a>.
+    </p>
+    <p>
+      Mock data belongs to <a href="https://data.world/datafiniti/hotel-reviews" target="_blank">datafiniti/Hotel Reviews</a>
+    </p>
+    <p>
+      <a href="https://github.com/lonedune/demos/tree/master/src/app/components/d3-wordcloud" target="_blank">See repo.</a>
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Demo</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="70%">
+        <mat-form-field appearance="outline" style="width:100%;">
+          <mat-label>Input text</mat-label>
+          <textarea matInput placeholder="Text" rows="10" [(ngModel)]='input_text'></textarea>
+          <mat-hint>Separate sentences by break line</mat-hint>
+        </mat-form-field>
+      </div>
+      <div fxFlex>
+        <div fxLayout="column">
+          <div fxFlex>
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Number of words in wordcloud</mat-label>
+              <input matInput placeholder="15" [(ngModel)]='input_num_words'>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <mat-form-field appearance="outline" style="width:100%;">
+              <mat-label>Words to remove</mat-label>
+              <textarea matInput placeholder="Text" rows="10" [(ngModel)]='input_stopwords'></textarea>
+              <mat-hint>Words you want to deliberately remove</mat-hint>
+            </mat-form-field>
+          </div>
+          <div fxFlex>
+            <button mat-raised-button color="primary" (click)="read_text()">Draw Word Cloud</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div [hidden]="!wordcloud_loaded">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title><h1>Word Cloud</h1></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mat-elevation-z6" style="background-color:#333;">
+        <div class="chart_wordcloud"></div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

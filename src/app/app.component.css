@@ -1,0 +1,42 @@
+.toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.toolbar-icon {
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar h1 {
+  display: inline-block;
+  font: 400 20px/36px Google Sans,sans-serif;
+  color: rgba(0,0,0,.54);
+  letter-spacing: 0;
+  margin: 0;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.toolbar a {
+  color: #263238;
+}
+
+.main-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 24px;
+  position: relative;
+}
+
+.mat-icon svg {
+  height: 24px;
+  width: 24px;
+}

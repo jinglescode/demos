@@ -1,0 +1,346 @@
+<h1>Time Series Forecasting with TensorFlow.js</h1>
+<p>Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework. <a href="https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201" target="_blank">Read on Medium</a></p>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Introduction</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <p>
+      <!-- [write about the purpose for this experiment] -->
+      Machine learning is becoming increasingly popular these days and a growing number of the world’s population see it is as a magic crystal ball: predicting when and what will happen in the future. This experiment uses artificial neural networks to reveal stock market trends and demonstrates the ability of time series forecasting to predict future stock prices based on past historical data.
+    </p>
+    <p>
+      <!-- [disclaimer] -->
+      <b>Disclaimer</b>: As stock markets fluctuation are dynamic and unpredictable owing to multiple factors, this experiment is 100% educational and by no means a trading prediction tool.
+    </p>
+    <p>
+      <!-- [how to use this experiment, outline] -->
+      There are 4 parts to this experiment:
+      <li>get historical stocks prices data</li>
+      <li>prepare training data for our neural network model</li>
+      <li>training the neural network</li>
+      <li>do some prediction</li>
+    </p>
+
+    <!-- <p>Begin by scrolling down to explore each step or hit the <i>Load Snapshot Demo</i> button!</p>
+    <button mat-raised-button color="primary">Load Snapshot Demo</button> -->
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Get Stocks Data</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="60%">
+        <p>
+          <!-- [purpose of this step, fun for the reader] -->
+          Before we can train our neural network and make any predictions, we will first require data. The type of data we are looking for is time series: a sequence of numbers in chronological order. A good starting place to fetch these data is from <a href="https://www.alphavantage.co" target="_blank">alphavantage.co</a>. This API allows us to retrieve chronological data on specific company stocks prices from the last 20 years.
+        </p>
+        <p>
+          The API yields the following fields:
+          <li>open price</li>
+          <li>highest price of that day</li>
+          <li>lowest price of that day</li>
+          <li>closing price</li>
+          <li>volume</li>
+        </p>
+        <p>
+          To prepare training dataset for our neural network, we will be using closing stocks price; which also means that we will be aiming to predict future closing price.
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+
+          <h2>Try It</h2>
+
+          <p>
+            <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+            Use <i>demo</i> API key to fetch <i>Microsoft Corporation</i> prices or <a href="https://www.alphavantage.co/support/#api-key" target="_blank">get your own API key</a> for other stocks.
+          </p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Ticker Symbol</mat-label>
+            <input matInput placeholder="example: MSFT" [(ngModel)]='input_ticker'>
+            <mat-hint>Demo API key only allows 'MSFT'</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Alpha Vantage API Key</mat-label>
+            <input matInput placeholder="Input your API key or use 'demo'" [(ngModel)]='input_apikey'>
+            <mat-hint>You can claim your API key from <a href="https://www.alphavantage.co/support/#api-key" target="_blank">alphavantage.co</a></mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data Temporal Resolutions</mat-label>
+            <mat-select placeholder="Data Temporal Resolutions" [(ngModel)]='input_temporal_resolutions'>
+              <mat-option value="Weekly">Weekly</mat-option>
+              <mat-option value="Daily">Daily</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <div style="float:left">
+              <button mat-raised-button color="primary" (click)="onClickFetchData()" [disabled]="demo_1_loadingdata">Fetch Data</button>
+            </div>
+            <div style="float:left; padding:5px;" [hidden]="!demo_1_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_1_loadingdata"></mat-spinner>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!demo_1_div_display">
+      <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
+      <h2>Loaded Stocks Data</h2>
+      <div class="mat-elevation-z6">
+        <plotly-plot class="mat-elevation-z6" [data]="demo_1_graph.data" [layout]="demo_1_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Simple Moving Average</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="60%">
+        <p>
+          <!-- [purpose of this step, fun for the reader] -->
+          For this experiment, we are using <a href="https://en.wikipedia.org/wiki/Supervised_learning" target="_blank">supervised learning</a>, which means feeding data to the neural network and it learns by mapping input data to the output label. One way to prepare the training dataset is to extract Simple Moving Average from that time series data.
+        </p>
+        <p>
+          <a href="https://www.investopedia.com/terms/s/sma.asp" target="_blank">Simple Moving Average (SMA)</a> is a method to identify trends direction for a certain period of time, by looking at the average of all the values within that time window. The number of prices in a time window is selected experimentally. For example, let's assume the closing prices for past 5 days were 13, 15, 14, 16, 17, the SMA would be (13+15+14+16+17)/5 = 15. So the <i>input</i> for our training dataset is the set of prices within a single time window, and <i>label</i> is the computed moving average of those prices.
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+          <h2>Try It</h2>
+          <p>
+            <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+            Let's generate the training dataset, hit on the <i>Compute SMA and Draw Chart</i> button to generate the training data for the neural network.
+          </p>
+          <mat-form-field appearance="outline">
+            <mat-label>Window Size</mat-label>
+            <input type="number" matInput placeholder="a number" [(ngModel)]='input_windowsize'>
+            <mat-hint>This is the "time window" for SMA</mat-hint>
+          </mat-form-field>
+
+          <div>
+            <div style="float:left">
+              <button mat-raised-button color="primary"
+              (click)="onClickDisplaySMA()"
+              [disabled]="demo_2_loadingdata || !demo_2_ready"
+              >
+              Compute SMA and Draw Chart
+              <mat-icon matTooltip="If disabled: fetch stocks data from the previous step">info</mat-icon>
+            </button>
+            </div>
+            <div style="float:left; padding:5px;" [hidden]="!demo_2_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_2_loadingdata"></mat-spinner>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!demo_2_div_display">
+      <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
+      <h2>Compute Simple Moving Average</h2>
+
+      <div class="mat-elevation-z6">
+        <plotly-plot class="mat-elevation-z6" [data]="demo_2_graph.data" [layout]="demo_2_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+      </div>
+
+      <!-- <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+        <div fxFlex="60%">
+          <div class="mat-elevation-z6">
+            <plotly-plot class="mat-elevation-z6" [data]="demo_2_graph.data" [layout]="demo_2_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+          </div>
+        </div>
+
+        <div fxFlex class="mat-elevation-z6" >
+          <mat-table [dataSource]="demo_2_table" style="height:350px; min-height:350px; overflow:auto; padding-top:20px">
+
+            <tr mat-header-row *matHeaderRowDef="demo_2_table_columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: demo_2_table_columns;"></tr>
+
+            <ng-container matColumnDef="index" sticky>
+              <th mat-header-cell *matHeaderCellDef> # </th>
+              <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+            </ng-container>
+            <ng-container matColumnDef="y">
+              <th mat-header-cell *matHeaderCellDef> Output (Y) </th>
+              <td mat-cell *matCellDef="let element"> {{element.y}} </td>
+            </ng-container>
+            <ng-container matColumnDef="x">
+              <th mat-header-cell *matHeaderCellDef> Input (X) </th>
+              <td mat-cell *matCellDef="let element"> {{element.x}} </td>
+            </ng-container>
+
+          </mat-table>
+        </div>
+      </div> -->
+
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Train Neural Network</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="60%">
+        <p>
+          <!-- [purpose of this step, fun for the reader] -->
+          Now that you have the training data, it is time to create a model for time series prediction, to achieve this we will use <a href="https://js.tensorflow.org/" target="_blank">TensorFlow.js</a> framework.
+        </p>
+        <p>
+          <a href="https://js.tensorflow.org/api/latest/#sequential" target="_blank">Sequential model</a> is selected which simply connects each layer and pass the data from input to the output during the training process. In order for the model to learn time series data which are sequential, <a href="https://js.tensorflow.org/api/latest/#layers.rnn" target="_blank">recurrent neural network (RNN) layer</a> layer is created and a number of <a href="https://js.tensorflow.org/api/latest/#layers.lstmCell" target="_blank">LSTM cells</a> are added to the RNN.
+        </p>
+        <p>
+          The model will be trained using <a href="https://js.tensorflow.org/api/latest/#train.adam" target="_blank">Adam</a> (<a href="https://arxiv.org/abs/1412.6980" target="_blank">read more</a>), a popular optimisation algorithm for machine learning. <a href="https://js.tensorflow.org/api/latest/#losses.meanSquaredError" target="_blank">Root-means-squared error</a> which determine the difference between predicted values and the actual values, so model is able to learn by minimising the error during the training process.
+        </p>
+        <p>
+          <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+          These are the hyperparameters (parameters used in the training process) available for tweaking:
+          <li>Training Dataset Size (%): the amount of data used for training, and remaining data will be used for prediction</li>
+          <li>Epochs: number of times the dataset is used to train the model (<a href="https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/" target="_blank">learn more</a>)</li>
+          <li>Learning Rate: amount of change in the weights during training in each step (<a href="https://machinelearningmastery.com/learning-rate-for-deep-learning-neural-networks/" target="_blank">learn more</a>)</li>
+          <li>Hidden LSTM Layers: to increase the model complexity to learn in higher dimensional space (<a href="https://machinelearningmastery.com/how-to-configure-the-number-of-layers-and-nodes-in-a-neural-network/" target="_blank">learn more</a>)</li>
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+          <h2>Try It</h2>
+          <p>
+            <!-- [how to use, what you want your reader to do after you end, as simple and obvious] -->
+            You may tweak the hyperparameters and then hit the <i>Begin Training Model</i> button to train the model.
+          </p>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Training Dataset Size (%)</mat-label>
+            <input type="number" matInput placeholder="a number between (1-99)" [(ngModel)]='input_trainingsize'>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Epochs</mat-label>
+            <input type="number" matInput placeholder="a number" [(ngModel)]='input_epochs'>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Learning Rate</mat-label>
+            <input type="number" matInput placeholder="typically range between 0.01 and 0.1" [(ngModel)]='input_learningrate'>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Hidden LSTM Layers</mat-label>
+            <input type="number" matInput placeholder="number of LSTM layers" [(ngModel)]='input_hiddenlayers'>
+          </mat-form-field>
+
+          <div>
+            <div style="float:left">
+              <button mat-raised-button color="primary"
+              (click)="onClickTrainModel()"
+              [disabled]="demo_3_loadingdata || !demo_3_ready"
+              >
+              Begin Training Model
+              <mat-icon matTooltip="If disabled: need training data, explore the previous section to prepare training data">info</mat-icon>
+            </button>
+            </div>
+            <div style="float:left; padding:5px;" [hidden]="!demo_3_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_3_loadingdata"></mat-spinner>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!demo_3_div_display">
+      <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
+      <h2>Training Model</h2>
+
+      <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="20px">
+        <div fxFlex class="mat-elevation-z6">
+          <mat-progress-bar  mode="determinate" value="{{demo_3_progressbar}}"></mat-progress-bar>
+        </div>
+
+        <div fxFlex class="mat-elevation-z6">
+            <plotly-plot [data]="demo_3_graph.data" [layout]="demo_3_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+
+        <div fxFlex class="mat-elevation-z6">
+          <div [innerHTML]="demo_3_traininglog" style="overflow-x: scroll; overflow-y: scroll; height: 150px; padding:5px"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Prediction</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="60%">
+        <p>
+          <!-- [purpose of this step, fun for the reader] -->
+          Now that you have trained your model, it is time to use it for predicting future values, for our case, it is the moving average. We are actually using the remaining data for prediction which allow us to see how closely our predicted values are compared to the actual values.
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+          <h2>Try It</h2>
+
+          <div>
+            <div style="float:left">
+              <button mat-raised-button color="primary"
+              (click)="onClickPredict()"
+              [disabled]="demo_4_loadingdata || !demo_4_ready"
+              >
+              Make Prediction
+              <mat-icon matTooltip="If disabled: don’t have a model to perform prediction, train model first">info</mat-icon>
+            </button>
+            </div>
+            <div style="float:left; padding:5px;" [hidden]="!demo_4_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_4_loadingdata"></mat-spinner>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!demo_4_div_display">
+      <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
+      <h2>Predicted</h2>
+
+      <div class="mat-elevation-z6">
+        <plotly-plot class="mat-elevation-z6" [data]="demo_4_graph.data" [layout]="demo_4_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+</mat-card>

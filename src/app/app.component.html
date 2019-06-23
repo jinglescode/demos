@@ -1,0 +1,24 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" media="screen" type="text/css">
+
+<mat-toolbar class="mat-elevation-z6 toolbar">
+  <mat-toolbar-row>
+    <h1>{{title}}</h1>
+    <span class="toolbar-spacer"></span>
+
+    <a mat-icon-button href="https://towardsdatascience.com/@lonedune" target="_blank">
+      <a class="toolbar-icon fi-social-medium"></a>
+    </a>
+    <a mat-icon-button href="https://www.linkedin.com/in/jingles/" target="_blank">
+      <a class="toolbar-icon fi-social-linkedin"></a>
+    </a>
+    <a mat-icon-button href="https://github.com/lonedune" target="_blank">
+      <a class="toolbar-icon fi-social-github"></a>
+    </a>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="main-container">
+  <router-outlet></router-outlet>
+</div>

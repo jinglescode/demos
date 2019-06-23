@@ -1,0 +1,27 @@
+
+<h1>
+  <div [hidden]="!game_ended">
+    <div [hidden]="winner==0">
+      Game ended, player {{winner==1?'X':'O'}} won
+    </div>
+    <div [hidden]="winner!=0">
+      Tie
+    </div>
+  </div>
+  <div [hidden]="game_ended">
+    Player {{playerTurn==1?'X':'O'}}'s turn
+  </div>
+</h1>
+
+<mat-grid-list cols="3" rowHeight="3:1">
+  <mat-grid-tile *ngFor="let grid of board ; let i = index">
+    <button mat-raised-button disableRipple
+    color="{{grid==1?'primary': grid==-1?'accent': 'basic'}}"
+    (click)="grid_select(i)"
+    >{{grid==1?'X':grid==-1?'O':'.'}}</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<div [hidden]="!game_ended">
+  <button mat-raised-button color="primary" (click)="reset_game()">Reset</button>
+</div>
