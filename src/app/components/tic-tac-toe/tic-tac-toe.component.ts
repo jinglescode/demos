@@ -20,22 +20,34 @@ export class TicTacToeComponent implements OnInit {
   agentA: TicTacToeAgent;
   agentB: TicTacToeAgent;
 
-  // game_ended = false;
-  // winner = 0;
-  // board = [0,0,0,0,0,0,0,0,0];
-  // playerTurn = 1;
+  input_episodes: number;
+
+  input_agent1_explore_probability = 0;
+  input_agent1_learning_rate = 0;
+  input_agent2_explore_probability = 0;
+  input_agent2_learning_rate = 0;
 
   ngOnInit() {
     this.environment = new TicTacToeEnvironment(3);
     this.agentA = new TicTacToeAgent(1);
     this.agentB = new TicTacToeAgent(-1);
+    this.input_episodes = 1;
+    this.input_agent1_explore_probability = 0.1;
+    this.input_agent1_learning_rate = 0.5;
+    this.input_agent2_explore_probability = 0.1;
+    this.input_agent2_learning_rate = 0.5;
+
     this.train_agents();
-    // this.train_agents(this.agentA, this.agentB, 1);
+    this.input_episodes = 10000;
+    // this.play_with_agent();
   }
 
+  play_again(){
+    this.environment.reset_game();
+    this.play_with_agent();
+  }
 
-
-  play_game(p1, p2){
+  async play_game(p1, p2, simulation=false){
 
     let current_agent = p1;
 
@@ -57,6 +69,10 @@ export class TicTacToeComponent implements OnInit {
       }else{
         current_agent = p1;
       }
+
+      if(simulation){
+        await this.sleep(1000);
+      }
     }
 
     p1.update(this.environment);
@@ -66,11 +82,12 @@ export class TicTacToeComponent implements OnInit {
 
   train_agents(){
 
-    let episode = 10000;
+    this.agentA = new TicTacToeAgent(1, this.input_agent1_explore_probability, this.input_agent1_learning_rate);
+    this.agentB = new TicTacToeAgent(-1, this.input_agent2_explore_probability, this.input_agent2_learning_rate);
 
-    let state_winner_triples = [];
-    this.get_state_hash_and_winner(state_winner_triples, this.environment);
-    console.log(state_winner_triples);
+    let episode = this.input_episodes;
+
+    let state_winner_triples = this.get_state_hash_and_winner(this.environment);
 
     let p1_V = this.initialV(this.environment, state_winner_triples, this.agentA.name);
     this.agentA.set_v(p1_V);
@@ -82,16 +99,21 @@ export class TicTacToeComponent implements OnInit {
       this.environment.reset_game();
     }
 
+    this.agentA.skill_level = episode;
+    this.agentB.skill_level = episode;
+
     console.log('train_agents completed');
   }
 
-
+  agent_simulation(){
+    this.environment.reset_game();
+    this.play_game(this.agentA, this.agentB, true);
+  }
 
   play_with_agent(){
 
-    let action = this.agentA.take_action(this.environment);
+    let action = this.agentA.take_action(this.environment, true);
 
-    console.log(this.agentA.name, action, this.environment.get_state());
     this.environment.grid_select(action);
 
     this.agentA.update_state_history(this.environment.get_state());
@@ -113,29 +135,34 @@ export class TicTacToeComponent implements OnInit {
     }
   }
 
-  get_state_hash_and_winner(results, env, i=0, j=0){
+  get_state_hash_and_winner(env, i=0, j=0){
+    let results = [];
 
-    for (var v in [0, 1, -1]) {
-     env.set_cell(i, j, v);
+    let options = [0,-1,1];//[0, 1, -1];
 
-     if (j == 2){
-       if (i == 2){
-         let state = env.get_state();
-         let ended = env.is_game_over(true);
-         let winner = env.winner;
+    for (var vi=0; vi<options.length; vi++) {
+      let v = options[vi];
+      env.set_cell(i, j, v);
+      // console.log(i, j, v, env.board);
 
-         // console.log(i,j, state, winner, ended)
-         results.push([state, winner, ended])
-       }
-       else{
-         results.concat(this.get_state_hash_and_winner(results, env, i + 1, 0));
-       }
-     }
-     else{
-       results.concat(this.get_state_hash_and_winner(results, env, i, j + 1));
-     }
+      if (j == 2){
+        if (i == 2){
+          let state = env.get_state();
+          let ended = env.is_game_over(env.board);
+          let winner = env.winner;
+          results.push([state, winner, ended])
+        }
+        else{
+          results = results.concat(this.get_state_hash_and_winner(env, (i+1), 0));
+        }
+      }
+      else{
+        results = results.concat(this.get_state_hash_and_winner(env, i, (j+1)));
+      }
+
     }
-    env.reset_game();
+    return results;
+    // env.reset_game();
   }
 
   initialV(env, state_winner_triples, player){
@@ -144,35 +171,41 @@ export class TicTacToeComponent implements OnInit {
     // if x loses or draw, V(s) = 0
     // otherwise, V(s) = 0.5
 
-    // let counter = [0,0,0];
+    let counter = [0,0,0];
     let V = [];
     for(let i=0;i<state_winner_triples.length;i++){
-      V.push(0.5);
+      V.push(0);
     }
 
     for(let i=0; i<state_winner_triples.length;i++){
-      let v = 0.5;
+      let v = 0;
       let state_winner_triple = state_winner_triples[i];
       let state = state_winner_triple[0];
       let winner = state_winner_triple[1];
       let ended = state_winner_triple[2];
+
       if(ended == true){
         if(winner == player){
           v = 1;
-          // counter[2]++;
+          counter[2]++;
         }else{
           v = 0;
-          // counter[0]++;
+          counter[0]++;
         }
+      }else{
+        v = 0.5;
       }
-      // if(v==0.5){
-      //   counter[1]++;
-      // }
+      if(v==0.5){
+        counter[1]++;
+      }
       V[state] = v;
     }
-    // console.log('initialV',counter);
+    console.log('initialV',counter);
     return V
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 }

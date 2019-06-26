@@ -11,7 +11,7 @@ export class TicTacToeEnvironment {
 
   constructor(board_length:number) {
     this.board_length = board_length;
-    this.num_states = Math.pow(board_length,3);
+    this.num_states = Math.pow(3,board_length*board_length);
 
     for(let i=0;i<Math.pow(board_length,2);i++){
       this.board.push(0);
@@ -19,11 +19,12 @@ export class TicTacToeEnvironment {
   }
 
   get_cell(i, j){
-    return parseInt(this.board[(i*this.board_length)+j]);
+    return parseInt(this.board[(j*this.board_length)+i]);
   }
 
   set_cell(i, j, value){
-    this.board[(i*this.board_length)+j] = value;
+    // console.log(i, j, value);
+    this.board[(j*this.board_length)+i] = parseInt(value);
   }
 
   cell_is_empty(i, j){
@@ -48,14 +49,18 @@ export class TicTacToeEnvironment {
 
   }
 
-  reset_game(){
+  reset_game(reset_player=true){
     this.winner = 0
     this.board = [];
     for(let i=0;i<Math.pow(this.board_length,2);i++){
       this.board.push(0);
     }
-    this.player_turn = 1;
+
     this.ended = false;
+
+    if(reset_player){
+      this.player_turn = 1;
+    }
   }
 
   get_reward(player:number){
@@ -78,9 +83,9 @@ export class TicTacToeEnvironment {
       for(let j=0;j<this.board_length;j++){
         if(this.get_cell(i,j) == 0){
           v = 0;
-        }else if (this.get_cell(i,j) == this.p1){
-          v = 1;
         }else if (this.get_cell(i,j) == this.p2){
+          v = 1;
+        }else if (this.get_cell(i,j) == this.p1){
           v = 2;
         }
 
@@ -93,18 +98,19 @@ export class TicTacToeEnvironment {
     return h;
   }
 
-  is_game_over(force_recalculate=false){
+  is_game_over(test_board=[]){
 
-    if(!force_recalculate && this.ended){
-      return this.ended;
+    if(test_board.length==0){
+      test_board = this.board;
     }
 
-    for(let i=0;i<(this.board_length*this.board_length);i+=3){
+    for(let i=0;i<(this.board_length*this.board_length);i+=this.board_length){
       let sum = 0;
       for(let j=i;j<i+this.board_length;j+=1){
-        sum += this.board[j];
+        sum += test_board[j];
       }
       if(this.check_if_player_won(sum)){
+        this.ended = true;
         return true;
       }
     }
@@ -113,30 +119,33 @@ export class TicTacToeEnvironment {
     for(let i=0;i<this.board_length;i+=1){
       let sum = 0;
       for(let j=i;j<i+7;j+=this.board_length){
-        sum += this.board[j];
+        sum += test_board[j];
       }
       if(this.check_if_player_won(sum)){
+        this.ended = true;
         return true;
       }
     }
 
     // diagonals
     if(
-      this.check_if_player_won(this.board[0]+this.board[4]+this.board[8])
+      this.check_if_player_won(test_board[0]+test_board[4]+test_board[8])
       ||
-      this.check_if_player_won(this.board[2]+this.board[4]+this.board[6])
+      this.check_if_player_won(test_board[2]+test_board[4]+test_board[6])
     ){
+      this.ended = true;
       return true;
     }
 
     let has_no_zeros = true;
     for(let i=0;i<this.board_length*this.board_length;i+=1){
-      if(this.board[i] == 0){
+      if(test_board[i] == 0){
         has_no_zeros = false;
         break;
       }
     }
     if(has_no_zeros){
+      this.ended = true;
       return true;
     }
 

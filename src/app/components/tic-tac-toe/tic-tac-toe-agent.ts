@@ -6,8 +6,9 @@ export class TicTacToeAgent {
   state_history = [];
   name = 0;
   V = [];
+  skill_level = 0;
 
-  constructor(name:number, eps=0.0, alpha=0.5) {
+  constructor(name:number, eps=0.1, alpha=0.5) {
     this.eps = eps; // probability of choosing random action instead of greedy
     this.alpha = alpha; // learning rate
     this.verbose = false;
@@ -19,7 +20,11 @@ export class TicTacToeAgent {
     this.V = V;
   }
 
-  take_action(env){
+  set_skilllevel(v){
+    this.skill_level = v;
+  }
+
+  take_action(env, verbose=false){
 
     let next_move = -1;
 
@@ -57,7 +62,9 @@ export class TicTacToeAgent {
         }
       }
 
-      // console.log('debug_moves', debug_moves);
+      if(verbose){
+        console.log('debug_moves', debug_moves);
+      }
 
     }
 
@@ -77,6 +84,7 @@ export class TicTacToeAgent {
       let prev = this.state_history[i];
       let value = this.V[prev] + this.alpha*(target - this.V[prev]);
       this.V[prev] = value;
+      // console.log(this.name, prev, this.V[prev]);
       target = this.copy_obj(value);
     }
     this.reset_history();
