@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { MnistComponent } from './components/mnist/mnist.component';
 import { TfjsTimeseriesStocksComponent } from './components/tfjs-timeseries-stocks/tfjs-timeseries-stocks.component';
-import { TicTacToeComponent } from './components/tic-tac-toe/tic-tac-toe.component';
+import { ReinforcementLearningTicTacToeComponent } from './components/reinforcement-learning-tic-tac-toe/reinforcement-learning-tic-tac-toe.component';
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'tfjs-timeseries-stocks', component: TfjsTimeseriesStocksComponent },
   { path: 'phrases-extraction-d3-wordcloud', component: PhrasesExtractionD3WordcloudComponent },
   { path: 'mnist', component: MnistComponent },
-  { path: 'tictactoe', component: TicTacToeComponent },
+  { path: 'reinforcement-learning-tic-tac-toe', component: ReinforcementLearningTicTacToeComponent },
 ];
 
 @NgModule({

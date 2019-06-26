@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from "../../services/global.service";
-import { TicTacToeAgent } from "./tic-tac-toe-agent";
-import { TicTacToeEnvironment } from "./tic-tac-toe-environment";
+import { TicTacToeAgent } from "./reinforcement-learning-tic-tac-toe-agent";
+import { TicTacToeEnvironment } from "./reinforcement-learning-tic-tac-toe-environment";
 
 @Component({
   selector: 'app-tic-tac-toe',
-  templateUrl: './tic-tac-toe.component.html',
-  styleUrls: ['./tic-tac-toe.component.css']
+  templateUrl: './reinforcement-learning-tic-tac-toe.component.html',
+  styleUrls: ['./reinforcement-learning-tic-tac-toe.component.css']
 })
-export class TicTacToeComponent implements OnInit {
+export class ReinforcementLearningTicTacToeComponent implements OnInit {
 
   constructor(private service: GlobalService) {
-    this.service.changePageTitle('Reinforcement Learning : Tic Tac Toe');
+    this.service.changePageTitle('Tic Tac Toe');
   }
 
   agent: TicTacToeAgent;
@@ -200,7 +200,7 @@ export class TicTacToeComponent implements OnInit {
       }
       V[state] = v;
     }
-    console.log('initialV',counter);
+    // console.log('initialV',counter);
     return V
   }
 
