@@ -113,7 +113,6 @@ export class TicTacToeComponent implements OnInit {
     }
   }
 
-
   get_state_hash_and_winner(results, env, i=0, j=0){
 
     for (var v in [0, 1, -1]) {
