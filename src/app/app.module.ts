@@ -49,7 +49,6 @@ import {MatAutocompleteModule,
   MatTreeModule} from '@angular/material';
 
 // components
-import { MnistComponent } from './components/mnist/mnist.component';
 import { TfjsTimeseriesStocksComponent } from './components/tfjs-timeseries-stocks/tfjs-timeseries-stocks.component';
 import { ReinforcementLearningTicTacToeComponent } from './components/reinforcement-learning-tic-tac-toe/reinforcement-learning-tic-tac-toe.component';
 import { HomeComponent } from './components/home/home.component';
@@ -60,7 +59,6 @@ import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extr
 @NgModule({
   declarations: [
     AppComponent,
-    MnistComponent,
     TfjsTimeseriesStocksComponent,
     ReinforcementLearningTicTacToeComponent,
     HomeComponent,
