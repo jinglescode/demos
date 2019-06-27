@@ -77,7 +77,7 @@ export class TicTacToeEnvironment {
   get_state(){
     let v = 0;
     let k = 0;
-    let h = 0;
+    let hashnum = 0;
 
     for(let i=0;i<this.board_length;i++){
       for(let j=0;j<this.board_length;j++){
@@ -89,13 +89,13 @@ export class TicTacToeEnvironment {
           v = 2;
         }
 
-        h += Math.pow(3,k) * v;
+        hashnum += Math.pow(3,k) * v;
         k++;
 
         // console.log(i, j, this.get_cell(i,j), v, h, k)
       }
     }
-    return h;
+    return hashnum;
   }
 
   is_game_over(test_board=[]){
