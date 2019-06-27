@@ -21,11 +21,13 @@ export class ReinforcementLearningTicTacToeComponent implements OnInit {
   agentB: TicTacToeAgent;
 
   input_episodes: number;
-
   input_agent1_explore_probability = 0;
   input_agent1_learning_rate = 0;
   input_agent2_explore_probability = 0;
   input_agent2_learning_rate = 0;
+
+  strategy: String;
+  agent_probability = [];
 
   ngOnInit() {
     this.environment = new TicTacToeEnvironment(3);
@@ -39,7 +41,6 @@ export class ReinforcementLearningTicTacToeComponent implements OnInit {
 
     this.train_agents();
     this.input_episodes = 10000;
-    // this.play_with_agent();
   }
 
   play_again(){
@@ -102,6 +103,8 @@ export class ReinforcementLearningTicTacToeComponent implements OnInit {
     this.agentB.skill_level = episode;
 
     console.log('train_agents completed');
+
+    this.play_with_agent();
   }
 
   agent_simulation(){
@@ -111,13 +114,23 @@ export class ReinforcementLearningTicTacToeComponent implements OnInit {
 
   play_with_agent(){
 
-    let action = this.agentA.take_action(this.environment, true);
+    this.agentA.set_eps(0);
 
-    this.environment.grid_select(action);
+    let action = this.agentA.take_action(this.environment, true);
+    let next_move = action[0];
+    this.strategy = action[1];
+
+    this.agent_probability = [0,0,0,0,0,0,0,0,0];
+    for(let i=0;i<action[2].length;i++){
+      this.agent_probability[action[2][i][0]] = (action[2][i][2] * 100).toFixed(1) + "%";
+    }
+
+    this.environment.grid_select(next_move);
 
     this.agentA.update_state_history(this.environment.get_state());
 
     if(this.environment.ended){
+      this.agentA.update(this.environment);
       console.log('ended');
     }
 
@@ -128,6 +141,7 @@ export class ReinforcementLearningTicTacToeComponent implements OnInit {
     this.environment.grid_select(i);
 
     if(this.environment.ended){
+      this.agentA.update(this.environment);
       console.log('ended');
     }else{
       this.play_with_agent();

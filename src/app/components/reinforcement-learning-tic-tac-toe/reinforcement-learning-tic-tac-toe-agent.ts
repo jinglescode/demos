@@ -2,7 +2,6 @@ export class TicTacToeAgent {
 
   eps = 0.1;
   alpha = 0.5;
-  verbose = false;
   state_history = [];
   name = 0;
   V = [];
@@ -11,7 +10,6 @@ export class TicTacToeAgent {
   constructor(name:number, eps=0.1, alpha=0.5) {
     this.eps = eps; // probability of choosing random action instead of greedy
     this.alpha = alpha; // learning rate
-    this.verbose = false;
     this.state_history = [];
     this.name = name;
   }
@@ -24,11 +22,19 @@ export class TicTacToeAgent {
     this.skill_level = v;
   }
 
-  take_action(env, verbose=false){
+  set_eps(v){
+    this.eps = v;
+  }
+
+  take_action(env, return_computation=false){
 
     let next_move = -1;
+    let debug_moves = [];
+    let strategy = "exploit"
 
     if(Math.random()<this.eps){
+      strategy = "explore";
+
       let possible_moves = []
       for(let i=0;i<env.board.length;i++){
         if(env.board[i]==0){
@@ -41,8 +47,6 @@ export class TicTacToeAgent {
     }else{
       let best_value = -1;
       let best_state = -1;
-
-      let debug_moves = [];
 
       for(let i=0;i<env.board_length*env.board_length;i++){
         if(env.board[i]==0){
@@ -62,13 +66,13 @@ export class TicTacToeAgent {
         }
       }
 
-      if(verbose){
-        console.log('debug_moves', debug_moves);
-      }
-
     }
 
-    return next_move;
+    if(return_computation){
+      return [next_move, strategy, debug_moves];
+    }else{
+      return next_move;
+    }
 
   }
 
