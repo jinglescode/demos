@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     {
       name:'Tic Tac Toe with Reinforcement Learning',
       link:'./reinforcement-learning-tic-tac-toe',
-      description:'A simple reinforcement learning algorithm for agents to learn tic tac toe.'
+      description:'A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function.'
     },
     {
       name:'Phrases extraction and D3 Wordcloud',
