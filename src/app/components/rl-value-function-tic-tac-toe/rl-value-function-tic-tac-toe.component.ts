@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from "../../services/global.service";
-import { TicTacToeAgent } from "./reinforcement-learning-tic-tac-toe-agent";
-import { TicTacToeEnvironment } from "./reinforcement-learning-tic-tac-toe-environment";
+import { TicTacToeAgent } from "./tic-tac-toe-agent";
+import { TicTacToeEnvironment } from "./tic-tac-toe-environment";
 
 @Component({
   selector: 'app-tic-tac-toe',
-  templateUrl: './reinforcement-learning-tic-tac-toe.component.html',
-  styleUrls: ['./reinforcement-learning-tic-tac-toe.component.css']
+  templateUrl: './rl-value-function-tic-tac-toe.component.html',
+  styleUrls: ['./rl-value-function-tic-tac-toe.component.css']
 })
-export class ReinforcementLearningTicTacToeComponent implements OnInit {
+export class RLValueFunctionTicTacToeComponent implements OnInit {
 
   constructor(private service: GlobalService) {
     this.service.changePageTitle('Tic Tac Toe');

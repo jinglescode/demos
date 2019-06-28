@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
       description:'Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework.'
     },
     {
-      name:'Tic Tac Toe with Reinforcement Learning',
-      link:'./reinforcement-learning-tic-tac-toe',
+      name:'Reinforcement Learning Value Function with Tic Tac Toe',
+      link:'./rl-value-function-tic-tac-toe',
       description:'A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function.'
     },
     {

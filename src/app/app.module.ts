@@ -50,7 +50,7 @@ import {MatAutocompleteModule,
 
 // components
 import { TfjsTimeseriesStocksComponent } from './components/tfjs-timeseries-stocks/tfjs-timeseries-stocks.component';
-import { ReinforcementLearningTicTacToeComponent } from './components/reinforcement-learning-tic-tac-toe/reinforcement-learning-tic-tac-toe.component';
+import { RLValueFunctionTicTacToeComponent } from './components/rl-value-function-tic-tac-toe/rl-value-function-tic-tac-toe.component';
 import { HomeComponent } from './components/home/home.component';
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 
@@ -59,9 +59,9 @@ import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extr
 @NgModule({
   declarations: [
     AppComponent,
-    TfjsTimeseriesStocksComponent,
-    ReinforcementLearningTicTacToeComponent,
     HomeComponent,
+    TfjsTimeseriesStocksComponent,
+    RLValueFunctionTicTacToeComponent,
     PhrasesExtractionD3WordcloudComponent,
   ],
   imports: [
