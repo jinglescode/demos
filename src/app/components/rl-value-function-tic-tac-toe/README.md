@@ -7,4 +7,4 @@ Train the agent to play tic-tac-toe, by having 2 agents play against each other 
 After training, you can play against the agent.
 
 [Demo](https://lonedune.github.io/demos/rl-value-function-tic-tac-toe) |
-[Code](https://github.com/lonedune/demos/tree/master/src/app/components/reinforcement-learning-tic-tac-toe)
+[Code](https://github.com/lonedune/demos/tree/master/src/app/components/rl-value-function-tic-tac-toe)
