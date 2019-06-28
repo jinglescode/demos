@@ -10,7 +10,7 @@ Pull stock prices from online API and perform predictions using Recurrent Neural
 
 A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function.
 
-[Demo](https://lonedune.github.io/demos/reinforcement-learning-tic-tac-toe) |
+[Demo](https://lonedune.github.io/demos/rl-value-function-tic-tac-toe) |
 [Code](https://github.com/lonedune/demos/tree/master/src/app/components/reinforcement-learning-tic-tac-toe)
 
 
