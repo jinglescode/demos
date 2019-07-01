@@ -4,15 +4,15 @@ Pull stock prices from online API and perform predictions using Recurrent Neural
 
 [Demo](https://lonedune.github.io/demos/tfjs-timeseries-stocks/) |
 [Code](https://github.com/lonedune/demos/tree/master/src/app/components/tfjs-timeseries-stocks) |
-[Read article on Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
+[Read article on Medium:Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
 
 ## Reinforcement Learning Value Function with Tic Tac Toe
 
-A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function.
+Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the value function. Train the agent to play tic-tac-toe, by having 2 agents play against each other through simulation. You can experiment by adjusting 2 parameters, 1) learning rate and 2) probability of exploration of each agent. After training, try playing against the agent.
 
 [Demo](https://lonedune.github.io/demos/rl-value-function-tic-tac-toe) |
 [Code](https://github.com/lonedune/demos/tree/master/src/app/components/rl-value-function-tic-tac-toe)
-
+[Read article on Medium:Towards Data Science](https://towardsdatascience.com/reinforcement-learning-value-function-57b04e911152)
 
 ## Phrases Extraction And D3 Wordcloud
 

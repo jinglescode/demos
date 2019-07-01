@@ -1,6 +1,6 @@
 ## Reinforcement Learning Value Function with Tic Tac Toe
 
-Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the value function
+Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the value function.
 
 At any progression state except the terminal stage (where a win, loss or draw is recorded), the agent takes an action which leads to the next state, which may not yield any reward but would result in the agent a move closer to receiving a reward.
 
@@ -15,5 +15,3 @@ Train the agent to play tic-tac-toe, by having 2 agents play against each other 
 [Demo](https://lonedune.github.io/demos/rl-value-function-tic-tac-toe)
 
 [Read article on Medium:Towards Data Science](https://towardsdatascience.com/reinforcement-learning-value-function-57b04e911152)
-
-[Code](https://github.com/lonedune/demos/tree/master/src/app/components/rl-value-function-tic-tac-toe)
