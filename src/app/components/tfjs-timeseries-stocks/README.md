@@ -8,7 +8,7 @@ Machine learning is becoming increasingly popular these days and a growing numbe
 
 [View Demo](https://lonedune.github.io/demos/tfjs-timeseries-stocks/)
 
-[Read article on Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
+[Read article on Medium:Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
 
 ### Get Stocks Data
 Before we can train our neural network and make any predictions, we will first require data. The type of data we are looking for is time series: a sequence of numbers in chronological order. A good starting place to fetch these data is from alphavantage.co. This API allows us to retrieve chronological data on specific company stocks prices from the last 20 years.
