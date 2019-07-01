@@ -39,8 +39,8 @@ export class RLValueFunctionTicTacToeComponent implements OnInit {
     this.input_agent2_explore_probability = 0.1;
     this.input_agent2_learning_rate = 0.5;
 
-    this.train_agents();
     this.input_episodes = 10000;
+    this.train_agents();
   }
 
   play_again(){
@@ -177,43 +177,6 @@ export class RLValueFunctionTicTacToeComponent implements OnInit {
     return results;
     // env.reset_game();
   }
-
-  // initialV(env, state_winner_triples, player){
-  //   // initialize state values as follows
-  //   // if x wins, V(s) = 1
-  //   // if x loses or draw, V(s) = 0
-  //   // otherwise, V(s) = 0.5
-  //
-  //   let counter = [0,0,0];
-  //   let V = [];
-  //   for(let i=0;i<state_winner_triples.length;i++){
-  //     V.push(0);
-  //   }
-  //
-  //   for(let i=0; i<state_winner_triples.length;i++){
-  //     let v = 0.5;
-  //     let state_winner_triple = state_winner_triples[i];
-  //     let state = state_winner_triple[0];
-  //     let winner = state_winner_triple[1];
-  //     let ended = state_winner_triple[2];
-  //
-  //     if(ended == true){
-  //       if(winner == player){
-  //         v = 1;
-  //         counter[2]++;
-  //       }else{
-  //         v = 0;
-  //         counter[0]++;
-  //       }
-  //     }
-  //     if(v==0.5){
-  //       counter[1]++;
-  //     }
-  //     V[state] = v;
-  //   }
-  //   // console.log('initialV',counter);
-  //   return V
-  // }
 
   initial_values(env, state_winner_triples, p1, p2){
 
