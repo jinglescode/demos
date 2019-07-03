@@ -185,12 +185,16 @@ export class TfjsTimeseriesStocksMain {
       }
     });
 
+    // await model.save('localstorage://tfjs-stocks');
+    // const model = await tf.loadLayersModel('localstorage://tfjs-stocks');
+    // const hist = {};
+
     return { model: model, stats: hist };
   }
 
-  makePredictions(inputs, size, model)
+  makePredictions(X, model)
   {
-      let X = inputs.slice(Math.floor(size / 100 * inputs.length), inputs.length);
+      // let X = inputs.slice(Math.floor(size / 100 * inputs.length), inputs.length);
       const predictedResults = model.predict(tf.tensor2d(X, [X.length, X[0].length]).div(tf.scalar(10))).mul(10);
       return Array.from(predictedResults.dataSync());
   }

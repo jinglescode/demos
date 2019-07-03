@@ -274,6 +274,7 @@
     <div [hidden]="!demo_3_div_display">
       <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
       <h2>Training Model</h2>
+      <p>Note: this browser must be active for the training to progress</p>
 
       <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="20px">
         <div fxFlex class="mat-elevation-z6">
@@ -287,9 +288,58 @@
         <div fxFlex class="mat-elevation-z6">
           <div [innerHTML]="demo_3_traininglog" style="overflow-x: scroll; overflow-y: scroll; height: 150px; padding:5px"></div>
         </div>
-
       </div>
 
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Validation</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="60%">
+        <p>
+          <!-- [purpose of this step, fun for the reader] -->
+          Now that you have trained your model, it is time to use the model.predict function from TFJS to predicting future values. We have split the data into 2 sets, {{input_trainingsize}}% of the data is training and the rest is the validation set. The training set has been used for training the model, thus will be using the validation set to validate the model. Since the model has not seen the data in the validation set before, it will be good if the model is able to predict values that are close to the exact values.
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div fxFlex>
+        <div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+          <h2>Try It</h2>
+          <p>So let us use the remaining data for prediction which allow us to see how closely our predicted values are compared to the actual values.</p>
+          <p>But if the model did not predict values that map closely to its true values, check the training loss graph. Generally, this model should converge with the loss to be less than 1. You can increase the number of epochs, or tweak the other learning hyperparameters.</p>
+          <div>
+            <div style="float:left">
+              <button mat-raised-button color="primary"
+              (click)="onClickValidate()"
+              [disabled]="demo_4_loadingdata || !demo_4_ready"
+              >
+              Validate Model
+              <mat-icon matTooltip="If disabled: don’t have a model to perform prediction, train model first">info</mat-icon>
+            </button>
+            </div>
+            <div style="float:left; padding:5px;" [hidden]="!demo_4_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_4_loadingdata"></mat-spinner>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div [hidden]="!demo_4_div_display">
+      <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
+      <h2>Compare True values to Predicted values</h2>
+
+      <div class="mat-elevation-z6">
+        <plotly-plot class="mat-elevation-z6" [data]="demo_4_graph.data" [layout]="demo_4_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+      </div>
     </div>
 
   </mat-card-content>
@@ -305,7 +355,7 @@
       <div fxFlex="60%">
         <p>
           <!-- [purpose of this step, fun for the reader] -->
-          Now that you have trained your model, it is time to use it for predicting future values, for our case, it is the moving average. We are actually using the remaining data for prediction which allow us to see how closely our predicted values are compared to the actual values.
+          Finally, the model has been validated and the predicted values map closely to its true values, we shall use it to predict the future. We will apply the same model.predict function and use the last {{input_windowsize}} data points as the input, because that is our window size. This means that, if our training data is increment daily, we will use the past {{input_windowsize}} days as input, to predict the next day.
         </p>
       </div>
       <mat-divider [vertical]="true"></mat-divider>
@@ -317,14 +367,14 @@
             <div style="float:left">
               <button mat-raised-button color="primary"
               (click)="onClickPredict()"
-              [disabled]="demo_4_loadingdata || !demo_4_ready"
+              [disabled]="demo_5_loadingdata || !demo_4_ready"
               >
               Make Prediction
               <mat-icon matTooltip="If disabled: don’t have a model to perform prediction, train model first">info</mat-icon>
             </button>
             </div>
-            <div style="float:left; padding:5px;" [hidden]="!demo_4_loadingdata">
-              <mat-spinner [diameter]="30" [hidden]="!demo_4_loadingdata"></mat-spinner>
+            <div style="float:left; padding:5px;" [hidden]="!demo_5_loadingdata">
+              <mat-spinner [diameter]="30" [hidden]="!demo_5_loadingdata"></mat-spinner>
             </div>
           </div>
 
@@ -332,12 +382,12 @@
       </div>
     </div>
 
-    <div [hidden]="!demo_4_div_display">
+    <div [hidden]="!demo_5_div_display">
       <mat-divider [inset]="true" style="margin-top:30px;margin-bottom:30px"></mat-divider>
       <h2>Predicted</h2>
 
       <div class="mat-elevation-z6">
-        <plotly-plot class="mat-elevation-z6" [data]="demo_4_graph.data" [layout]="demo_4_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        <plotly-plot class="mat-elevation-z6" [data]="demo_5_graph.data" [layout]="demo_5_graph.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
       </div>
 
     </div>
