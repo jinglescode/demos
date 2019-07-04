@@ -12,6 +12,6 @@ There are many ways to define a value function, this is just one that is suitabl
 
 Train the agent to play tic-tac-toe, by having 2 agents play against each other through simulation. You can experiment by adjusting 2 parameters, 1) learning rate and 2) probability of exploration of each agent. After training, try playing against the agent.
 
-[Demo](https://lonedune.github.io/demos/rl-value-function-tic-tac-toe)
+[Demo](https://jinglescode.github.io/demos/rl-value-function-tic-tac-toe)
 
 [Read article on Medium:Towards Data Science](https://towardsdatascience.com/reinforcement-learning-value-function-57b04e911152)

@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "push": "sh ./others/push_git.sh",
     "pull": "sh ./others/pull_git.sh",
-    "ghpage1": "ng build --prod --base-href 'https://lonedune.github.io/demos/' --source-map --build-optimizer",
+    "ghpage1": "ng build --prod --base-href 'https://jinglescode.github.io/demos/' --source-map --build-optimizer",
     "ghpage2": "npx angular-cli-ghpages --dir=dist/demos"
   },
   "private": true,

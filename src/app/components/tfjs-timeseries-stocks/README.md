@@ -6,7 +6,7 @@ Machine learning is becoming increasingly popular these days and a growing numbe
 
 <b>Disclaimer</b>: As stock markets fluctuation are dynamic and unpredictable owing to multiple factors, this experiment is 100% educational and by no means a trading prediction tool.
 
-[View Demo](https://lonedune.github.io/demos/tfjs-timeseries-stocks/)
+[View Demo](https://jinglescode.github.io/demos/tfjs-timeseries-stocks/)
 
 [Read article on Medium:Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
 
