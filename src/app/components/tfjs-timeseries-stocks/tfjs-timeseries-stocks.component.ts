@@ -219,7 +219,7 @@ export class TfjsTimeseriesStocksComponent implements OnInit {
     let inputs = this.data_sma_vec.map(function(inp_f) {
      return inp_f['set'].map(function (val) { return val['price']; });
     });
-    let pred_X = [inputs[inputs.length-this.input_windowsize]];
+    let pred_X = [inputs[inputs.length-1]];
 
     let pred_y = await this.model.makePredictions(pred_X, this.trained_model['model']);
 

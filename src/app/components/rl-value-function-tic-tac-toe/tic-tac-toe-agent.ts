@@ -7,7 +7,7 @@ export class TicTacToeAgent {
   V = [];
   skill_level = 0;
 
-  constructor(name:number, eps=0.1, alpha=0.5) {
+  constructor(name:number, eps=0.05, alpha=0.5) {
     this.eps = eps; // probability of choosing random action instead of greedy
     this.alpha = alpha; // learning rate
     this.state_history = [];

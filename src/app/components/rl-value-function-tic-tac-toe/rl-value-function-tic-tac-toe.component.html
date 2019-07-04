@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <p>
-      A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function.
+      A simple reinforcement learning algorithm for agents to learn the game tic-tac-toe. This demonstrate the purpose of the value function. <a href="https://towardsdatascience.com/reinforcement-learning-value-function-57b04e911152" target="_blank">Read on Medium</a>
     </p>
     <p>
       You can train the agent, where 2 agents will be created and trained through simulation. You can adjust the 1) learning rate and probability of exploration of each agent. After training, you can play against agent 1.
@@ -110,30 +110,64 @@
 </div>
 
 
-<!--
-<h1>
-  <div [hidden]="!environment.is_game_over()">
-    <div [hidden]="environment.winner==0">
-      Game ended, player {{environment.winner==1?'X':'O'}} won
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Evaluate Epsilon Greedy</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      In order to figure out the most suitable epsilon-greedy value, I will test different epsilon-greedy value. First, initialise agent X with epsilon-greedy of 0.01, means there is 1% probability agent X will choose to explore instead of exploiting. Then, agents will play against each other for 10,000 games, and I will record the number of times agent X wins. After 10,000 games, I will increase the epsilon-greedy value to 0.02 and agents will play another 10,000 games.
+    </p>
+    <h2>
+      Agent X (eps increment) vs Agent O (eps 0.05)
+    </h2>
+    <p>The blue line is the number of times agent X won against agent O. The winning rate decreases as the epsilon-greedy value increases and peaked at winning 9268 games at the epsilon-greedy value of 0.05 (agent X explores 5% of the time). Agent O begin to win more games as agent X explores more than 50% of the time.</p>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agentx_graph_1.data" [layout]="demo_agentx_graph_1.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agentx_graph_2.data" [layout]="demo_agentx_graph_2.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
     </div>
-    <div [hidden]="environment.winner!=0">
-      Tie
+    <h2>
+      Agent O (eps increment) vs Agent X (eps 0.05)
+    </h2>
+    <p>Let us try something, by experimenting with different epsilon greedy for agent O, challenging agent X with an optimal 5% epsilon greedy.</p>
+    <p>Given agent X has optimal epsilon greedy and advantage to start first in the game, agent O lost the game before it is able to learn the game.</p>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agento_graph_1.data" [layout]="demo_agento_graph_1.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agento_graph_2.data" [layout]="demo_agento_graph_2.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
     </div>
-  </div>
-  <div [hidden]="environment.is_game_over()">
-    Player {{environment.player_turn==1?'X':'O'}}'s turn
-  </div>
-</h1>
+    <h2>
+      Agent O (eps increment) vs Agent X (eps 1)
+    </h2>
+    <p>Let's tweak epsilon greedy of agent X to 100%, where agent X will be playing random actions all the time.</p>
+    <p>Agent O is able to learn the game and win against agent X, peaking at 4% epsilon greedy and begin losing at 30%.</p>
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agento_graph_1_zero.data" [layout]="demo_agento_graph_1_zero.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
+      <div fxFlex="50%">
+        <div class="mat-elevation-z6">
+          <plotly-plot class="mat-elevation-z6" [data]="demo_agento_graph_2_zero.data" [layout]="demo_agento_graph_2_zero.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+        </div>
+      </div>
+    </div>
 
-<mat-grid-list cols="3" rowHeight="3:1">
-  <mat-grid-tile *ngFor="let grid of environment.board ; let i = index">
-    <button mat-raised-button disableRipple
-    color="{{grid==1?'primary': grid==-1?'accent': 'basic'}}"
-    (click)="human_player_move(i)"
-    >{{grid==1?'X':grid==-1?'O':'.'}}</button>
-  </mat-grid-tile>
-</mat-grid-list>
-
-<div [hidden]="!environment.is_game_over()">
-  <button mat-raised-button color="primary" (click)="play_again()">Reset</button>
-</div> -->
+  </mat-card-content>
+</mat-card>
