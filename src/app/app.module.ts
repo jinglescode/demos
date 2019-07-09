@@ -49,9 +49,9 @@ import {MatAutocompleteModule,
   MatTreeModule} from '@angular/material';
 
 // components
+import { HomeComponent } from './components/home/home.component';
 import { TfjsTimeseriesStocksComponent } from './components/tfjs-timeseries-stocks/tfjs-timeseries-stocks.component';
 import { RLValueFunctionTicTacToeComponent } from './components/rl-value-function-tic-tac-toe/rl-value-function-tic-tac-toe.component';
-import { HomeComponent } from './components/home/home.component';
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 import { ClusteringD3ForceChartComponent } from './components/clustering-d3-force-chart/clustering-d3-force-chart.component';
 
