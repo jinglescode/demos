@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <script src="assets/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="assets/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7">
+  <link rel="stylesheet" href="assets/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r">
+  <script src="assets/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"></script>
+  <script src="assets/d3.v3.min.js"></script>
+
+  <style>
+    circle {
+      stroke: #fff;
+    }
+    .title {
+      font-weight: bold;
+      font-family: Segoe UI,Helvetica Neue,Arial,sans serif;
+      font-size: 16px;
+      text-shadow:
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff;
+    }
+  </style>
+
+</head>
+<body>
+
+    <center>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('Attrition')">Attrition</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('Department')">Department</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('EducationField')">Education Field</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('EnvironmentSatisfaction')">Environment Satisfaction</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('Gender')">Gender</button>
+            <button type="button" class="btn btn-primary" onclick="javascript:change_cluster('JobRole')">JobRole</button>
+        </div>
+    </center>
+
+    <h1 style="position:absolute; margin-left:50px" id="current_selected"></h1>
+    <div id="chart"></div>
+
+</body>
+<script src="watson_attribtion_data.js"></script>
+<script src="script.js"></script>
+</html>

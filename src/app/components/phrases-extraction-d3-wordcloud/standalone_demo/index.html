@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/d3.min.js"></script>
+    <script src="assets/cloud.js"></script>
+    <link href="assets/space.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div class="stars" style="z-index:-20"></div>
+    <div class="twinkling" style="z-index:-19"></div>
+    <div class="clouds "></div>
+
+    <div id="chart"></div>
+
+    <script src="list_text.js"></script>
+
+    <script src="get_top_phrases.js"></script>
+    <script src="make_wordcloud.js"></script>
+
+    <script>
+      var word_count = get_top_phrases(_list_text, 15, ['wir haben','war sehr']);
+      console.log(word_count)
+      make_wordcloud(word_count)
+    </script>
+  </body>
+</html>
