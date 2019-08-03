@@ -6,6 +6,7 @@ import { TfjsTimeseriesStocksComponent } from './components/tfjs-timeseries-stoc
 import { RLValueFunctionTicTacToeComponent } from './components/rl-value-function-tic-tac-toe/rl-value-function-tic-tac-toe.component';
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 import { ClusteringD3ForceChartComponent } from './components/clustering-d3-force-chart/clustering-d3-force-chart.component';
+import { NlpSentenceEncoderComponent } from './components/nlp-sentence-encoder/nlp-sentence-encoder.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'phrases-extraction-d3-wordcloud', component: PhrasesExtractionD3WordcloudComponent },
   { path: 'rl-value-function-tic-tac-toe', component: RLValueFunctionTicTacToeComponent },
   { path: 'clustering-d3-force-chart', component: ClusteringD3ForceChartComponent },
+  { path: 'nlp-sentence-encoder', component: NlpSentenceEncoderComponent },
 ];
 
 @NgModule({
