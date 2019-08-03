@@ -148,6 +148,9 @@ MIT
 @angular/router
 MIT
 
+@tensorflow-models/universal-sentence-encoder
+Apache-2.0
+
 @tensorflow/tfjs
 Apache-2.0
 
