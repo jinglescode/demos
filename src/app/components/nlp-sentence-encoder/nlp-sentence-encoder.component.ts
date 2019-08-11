@@ -112,7 +112,7 @@ export class NlpSentenceEncoderComponent implements OnInit {
               colorscale: colors
             }
           ],
-          layout: {height:600, title: "Similarity", autosize: true}
+          layout: {height:1200, title: "Similarity", autosize: true}
       };
     }
 
