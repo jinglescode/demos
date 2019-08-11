@@ -20,17 +20,11 @@ export class NlpSentenceEncoderComponent implements OnInit {
   }
 
   get_embeddings(list_sentences, callback) {
-    // return new Promise((resolve, reject) => {
       use.load().then(model => {
         model.embed(list_sentences).then(embeddings => {
-          // `embeddings` is a 2D tensor consisting of the 512-dimensional embeddings for each sentence.
-          // embeddings.print(true /* verbose */);
-          // console.log(embeddings);
           callback(embeddings);
-          // resolve(embeddings);
         });
       });
-    // });
   }
 
   dot(a, b){
@@ -91,6 +85,8 @@ export class NlpSentenceEncoderComponent implements OnInit {
 
 
     let callback = function(embeddings) {
+
+      console.log("embeddings", embeddings);
 
       let cosine_similarity_matrix = this.cosine_similarity_matrix(embeddings.arraySync());
 
