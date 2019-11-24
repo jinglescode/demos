@@ -13,7 +13,7 @@ export class TfjsTimeseriesStocksMain {
   data_temporal_resolutions: string;
 
   constructor(private  httpClient:HttpClient) {
-    this.input_dataset = []
+    this.input_dataset = [];
     this.result = [];
     this.data_raw = [];
     this.sma_vec = [];

@@ -50,7 +50,7 @@ export class TicTacToeEnvironment {
   }
 
   reset_game(reset_player=true){
-    this.winner = 0
+    this.winner = 0;
     this.board = [];
     for(let i=0;i<Math.pow(this.board_length,2);i++){
       this.board.push(0);

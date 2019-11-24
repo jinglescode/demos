@@ -168,7 +168,7 @@ export class ClusteringD3ForceChartMain {
     for(var i in this.raw_data){
       nodes[i].cluster_id = computer_categories[ this.raw_data[i][attribute] ][0];
       nodes[i].cx = gravity_point[nodes[i].cluster_id].x,
-      nodes[i].cy = gravity_point[nodes[i].cluster_id].y
+      nodes[i].cy = gravity_point[nodes[i].cluster_id].y;
 
       if(!(nodes[i].cluster_id in cluster_count_innerclusters)){
         cluster_count_innerclusters[nodes[i].cluster_id.toString()] = {};

@@ -10,7 +10,7 @@ import * as use from '@tensorflow-models/universal-sentence-encoder';
 })
 export class NlpSentenceEncoderComponent implements OnInit {
 
-  list_sentences = []
+  list_sentences = [];
   plotly_heatmap = {data:[], layout:{}};
 
   constructor() { }
@@ -29,7 +29,7 @@ export class NlpSentenceEncoderComponent implements OnInit {
 
   dot(a, b){
     var hasOwnProperty = Object.prototype.hasOwnProperty;
-    var sum = 0
+    var sum = 0;
     for (var key in a) {
       if (hasOwnProperty.call(a, key) && hasOwnProperty.call(b, key)) {
         sum += a[key] * b[key]
@@ -39,9 +39,9 @@ export class NlpSentenceEncoderComponent implements OnInit {
   }
 
   similarity(a, b) {
-    var magA = Math.sqrt(this.dot(a, a))
-    var magB = Math.sqrt(this.dot(b, b))
-    if (magA && magB) return this.dot(a, b) / (magA * magB)
+    var magA = Math.sqrt(this.dot(a, a));
+    var magB = Math.sqrt(this.dot(b, b));
+    if (magA && magB) return this.dot(a, b) / (magA * magB);
     else return false
   }
 
@@ -81,7 +81,7 @@ export class NlpSentenceEncoderComponent implements OnInit {
         // Asking about age
         "How old are you?",
         "what is your age?"
-    ]
+    ];
 
 
     let callback = function(embeddings) {
@@ -91,7 +91,7 @@ export class NlpSentenceEncoderComponent implements OnInit {
       let cosine_similarity_matrix = this.cosine_similarity_matrix(embeddings.arraySync());
 
       let colors = [];
-      let base_color = 54
+      let base_color = 54;
       for(let i=0;i<=10;i++){
         colors.push([i/10, "rgb("+(base_color+(i*20))+", 0, 0)"]);
       }
@@ -110,7 +110,7 @@ export class NlpSentenceEncoderComponent implements OnInit {
           ],
           layout: {height:1200, title: "Similarity", autosize: true}
       };
-    }
+    };
 
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 

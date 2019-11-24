@@ -35,7 +35,7 @@ export class PhrasesExtractionD3WordcloudComponent implements OnInit {
     let list_stopwords = this.input_stopwords.split('\n');
 
     var word_count = this.api_phrases.get_top_phrases(rows_of_string, this.input_num_words, list_stopwords);
-    console.log(word_count)
+    console.log(word_count);
 
     this.wordcloud_loaded = true;
 

@@ -62,7 +62,7 @@ export class D3WordcloucPhrases {
             }else{
               is_ok = false;
             }
-          })
+          });
 
           if(is_ok){
             if(key[i] >= atLeast && words.length > 1){
@@ -88,9 +88,9 @@ export class D3WordcloucPhrases {
     }
 
     var list_phrases = [];
-    var vocab = []
+    var vocab = [];
     var phrases_count = {};
-    var phrase_count_sorted = phrase_count.sort(f_sortAscending)
+    var phrase_count_sorted = phrase_count.sort(f_sortAscending);
     for(var i=0;i<top_n;i++){
       var phrase = phrase_count_sorted[i].word;
       phrases_count[phrase_count_sorted[i].word] = phrase_count_sorted[i].count;
@@ -98,8 +98,8 @@ export class D3WordcloucPhrases {
     }
 
 
-    var phrases_onehot = this.phrases_to_onehot(list_phrases)
-    var phrases_remove_subset = this.remove_subset(list_phrases, phrases_onehot)
+    var phrases_onehot = this.phrases_to_onehot(list_phrases);
+    var phrases_remove_subset = this.remove_subset(list_phrases, phrases_onehot);
 
     var output = {};
     for(var p in phrases_remove_subset){

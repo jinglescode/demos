@@ -1,4 +1,4 @@
-let input_dataset = []
+let input_dataset = [];
 let result = [];
 let data_raw = []; let sma_vec = [];
 let window_size = 50;
@@ -177,7 +177,7 @@ async function onClickTrainModel(){
 
     let graph_plot = document.getElementById('div_linegraph_trainloss');
     Plotly.newPlot( graph_plot, [{x: Array.from({length: epoch_loss.length}, (v, k) => k+1), y: epoch_loss, name: "Loss" }], { margin: { t: 0 } } );
-  }
+  };
 
   result = await trainModel(inputs, outputs, trainingsize, window_size, n_epochs, learningrate, n_hiddenlayers, callback);
 
