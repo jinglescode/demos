@@ -20,12 +20,14 @@
   <div *ngFor="let showcase of showcases" fxFlex="25%" fxFlex.lt-md="50%" fxFlex.lt-sm="100%">
     <div style="padding:10px;">
       <a href="{{showcase.link}}">
-        <mat-card style="height:150px">
+        <mat-card>
           <mat-card-header>
             <mat-card-title>{{showcase.name}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            {{showcase.description}}
+            <div style="height:150px">
+              {{showcase.description}}
+            </div>
           </mat-card-content>
         </mat-card>
       </a>
