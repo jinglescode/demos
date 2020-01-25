@@ -10,6 +10,10 @@ Pull stock prices from online API and perform predictions using Recurrent Neural
 [Code](https://github.com/jinglescode/demos/tree/master/src/app/components/tfjs-timeseries-stocks) |
 [Article](https://jinglescode.github.io/datascience/2019/05/17/time-series-forecasting-with-tensorflow-js/)
 
+Packages dependencies:
+- @tensorflow/tfjs
+- @angular/common/http
+
 ## Reinforcement Learning Value Function with Tic Tac Toe
 
 Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the value function. Train the agent to play tic-tac-toe, by having 2 agents play against each other through simulation. You can experiment by adjusting 2 parameters, 1) learning rate and 2) probability of exploration of each agent. After training, try playing against the agent.
@@ -24,6 +28,10 @@ Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the 
 
 [Demo](https://jinglescode.github.io/demos/phrases-extraction-d3-wordcloud) |
 [Code](https://github.com/jinglescode/demos/tree/master/src/app/components/phrases-extraction-d3-wordcloud)
+
+Packages dependencies:
+- d3
+- d3.layout.cloud
 
 # Features
 
