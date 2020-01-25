@@ -30,12 +30,12 @@ export class TicTacToeAgent {
 
     let next_move = -1;
     let debug_moves = [];
-    let strategy = "exploit"
+    let strategy = "exploit";
 
     if(Math.random()<this.eps){
       strategy = "explore";
 
-      let possible_moves = []
+      let possible_moves = [];
       for(let i=0;i<env.board.length;i++){
         if(env.board[i]==0){
           possible_moves.push(i);
@@ -55,7 +55,7 @@ export class TicTacToeAgent {
           let state = env.get_state();
           env.board[i] = 0;
 
-          debug_moves.push([i, state, this.V[state]])
+          debug_moves.push([i, state, this.V[state]]);
 
           if(this.V[state] > best_value){
             best_value = this.V[state];

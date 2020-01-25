@@ -13,7 +13,7 @@ import { TfjsTimeseriesStocksMain } from "./tfjs-timeseries-stocks-main";
 export class TfjsTimeseriesStocksComponent implements OnInit {
 
   model: TfjsTimeseriesStocksMain;
-  trained_model = {}
+  trained_model = {};
 
   data_raw = [];
   data_sma_vec = [];
@@ -150,7 +150,7 @@ export class TfjsTimeseriesStocksComponent implements OnInit {
           layout: {height: 350, title: "Training Loss", autosize: true}
       };
       window.dispatchEvent(new Event('resize'));
-    }
+    };
 
     let model_params = {
       "inputs":inputs,

@@ -57,7 +57,7 @@ function get_top_phrases(_list_text, top_n, remove_these){
           }else{
             is_ok = false;
           }
-        })
+        });
 
         if(is_ok){
           if(key[i] >= atLeast && words.length > 1){
@@ -83,9 +83,9 @@ function get_top_phrases(_list_text, top_n, remove_these){
   }
 
   var list_phrases = [];
-  var vocab = []
+  var vocab = [];
   var phrases_count = {};
-  var phrase_count_sorted = phrase_count.sort(f_sortAscending)
+  var phrase_count_sorted = phrase_count.sort(f_sortAscending);
   for(var i=0;i<top_n;i++){
     var phrase = phrase_count_sorted[i].word;
     phrases_count[phrase_count_sorted[i].word] = phrase_count_sorted[i].count;
@@ -93,8 +93,8 @@ function get_top_phrases(_list_text, top_n, remove_these){
   }
 
 
-  var phrases_onehot = phrases_to_onehot(list_phrases)
-  var phrases_remove_subset = remove_subset(list_phrases, phrases_onehot)
+  var phrases_onehot = phrases_to_onehot(list_phrases);
+  var phrases_remove_subset = remove_subset(list_phrases, phrases_onehot);
   
   var output = {};
   for(var p in phrases_remove_subset){
@@ -126,8 +126,7 @@ function a_is_subset_of_b (a, b) {
     }
   }
   return a_b_same;
-};
-
+}
 function phrases_to_onehot(list_phrases){
   var row = [];
   var vocab = [];

@@ -152,7 +152,7 @@ function change_cluster(attribute){
   for(i in _data){
     nodes[i].cluster_id = computer_categories[ _data[i][attribute] ][0];
     nodes[i].cx = gravity_point[nodes[i].cluster_id].x,
-    nodes[i].cy = gravity_point[nodes[i].cluster_id].y
+    nodes[i].cy = gravity_point[nodes[i].cluster_id].y;
 
     if(!(nodes[i].cluster_id in cluster_count_innerclusters)){
       cluster_count_innerclusters[nodes[i].cluster_id.toString()] = {};
