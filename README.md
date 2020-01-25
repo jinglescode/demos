@@ -1,3 +1,7 @@
+# JavaScript Exhibits
+
+Here are the list of JavaScript projects in this repo. I work on them during my free time. If you are interested to collaborate on working a cool JavaScript side project together, [reach out to me](https://jinglescode.github.io/), I will be happy to chat!
+
 ## Time Series Forecasting With TensorFlow.Js
 
 Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework.
@@ -20,3 +24,28 @@ Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the 
 
 [Demo](https://jinglescode.github.io/demos/phrases-extraction-d3-wordcloud) |
 [Code](https://github.com/jinglescode/demos/tree/master/src/app/components/phrases-extraction-d3-wordcloud)
+
+# Features
+
+- packages are shared among all the exhibits, reduces setup time and we can focus on building JavaScript projects
+- each project are separated as different [app/components](https://github.com/jinglescode/demos/tree/master/src/app/components), this is neat
+
+# Install
+
+With [npm](https://npmjs.org/) installed, run
+
+```
+$ npm install
+```
+
+That will install all the dependencies listed in `package.json`.
+
+# Usage
+
+Simply run
+
+```
+$ npm start
+```
+
+This project is build on [Angular](https://angular.io/), styles are based on [Material](https://material.angular.io/)
