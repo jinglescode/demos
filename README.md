@@ -8,7 +8,7 @@ Pull stock prices from online API and perform predictions using Recurrent Neural
 
 [Demo](https://jinglescode.github.io/demos/tfjs-timeseries-stocks/) |
 [Code](https://github.com/jinglescode/demos/tree/master/src/app/components/tfjs-timeseries-stocks) |
-[Read article on Medium:Towards Data Science](https://towardsdatascience.com/time-series-forecasting-with-tensorflow-js-1efd48ff2201)
+[Article](https://jinglescode.github.io/datascience/2019/05/17/time-series-forecasting-with-tensorflow-js/)
 
 ## Reinforcement Learning Value Function with Tic Tac Toe
 
@@ -16,7 +16,7 @@ Reinforcement learning algorithm for agents to learn the tic-tac-toe, using the 
 
 [Demo](https://jinglescode.github.io/demos/rl-value-function-tic-tac-toe) |
 [Code](https://github.com/jinglescode/demos/tree/master/src/app/components/rl-value-function-tic-tac-toe) |
-[Read article on Medium:Towards Data Science](https://towardsdatascience.com/reinforcement-learning-value-function-57b04e911152)
+[Article](https://jinglescode.github.io/datascience/2019/06/30/reinforcement-learning-value-function/)
 
 ## Phrases Extraction And D3 Wordcloud
 
@@ -48,4 +48,4 @@ Simply run
 $ npm start
 ```
 
-This project is build on [Angular](https://angular.io/), styles are based on [Material](https://material.angular.io/)
+This project is build on [Angular](https://angular.io/), styles are based on [Material](https://material.angular.io/).
