@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from "../../services/global.service";
 import { ClusteringD3ForceChartMain } from "./clustering-d3-force-chart-main";
 
 @Component({
@@ -10,9 +11,10 @@ export class ClusteringD3ForceChartComponent implements OnInit {
 
   api_main: ClusteringD3ForceChartMain;
 
-  constructor() { }
+  constructor(private service: GlobalService) { }
 
   ngOnInit() {
+    this.service.changePageTitle('Force Chart');
     this.api_main = new ClusteringD3ForceChartMain();
 
     this.api_main.init();

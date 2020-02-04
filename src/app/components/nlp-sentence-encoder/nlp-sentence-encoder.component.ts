@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from "../../services/global.service";
 
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
@@ -12,11 +13,50 @@ export class NlpSentenceEncoderComponent implements OnInit {
 
   list_sentences = [];
   plotly_heatmap = {data:[], layout:{}};
-
-  constructor() { }
+  input_sentences: string;
+  input_threshold: 0.5;
+  output_resultshtml: string;
+  
+  constructor(private service: GlobalService) { }
 
   ngOnInit() {
-    this.main();
+    this.service.changePageTitle('Sentence Similarity With TensorFlow.Js Sentence Encoder');
+    // Smartphones
+    // Weather
+    // Food and health
+    // Asking about age
+    this.input_sentences =
+`I like my phone
+My phone is not good.
+Your cellphone looks great.
+
+Will it snow tomorrow?
+Recently a lot of hurricanes have hit the US
+Global warming is real
+
+An apple a day, keeps the doctors away
+Eating strawberries is healthy
+Is paleo better than keto?
+
+How old are you?
+what is your age?`;
+    ;
+    this.input_threshold = 0.5;
+    this.onClickAnalyzeSentences();
+    // this.main();
+  }
+
+  async onClickAnalyzeSentences(){
+    var list_sentences = [];
+    var input_sentences = this.input_sentences.split("\n");
+    for(var i in input_sentences){
+      if(input_sentences[i].length){
+        list_sentences.push(input_sentences[i]);
+      }
+    }
+
+    console.log(list_sentences);
+    this.get_similarity(list_sentences);
   }
 
   get_embeddings(list_sentences, callback) {
@@ -61,42 +101,82 @@ export class NlpSentenceEncoderComponent implements OnInit {
     return cosine_similarity_matrix;
   }
 
-  async main(){
-    let list_sentences = [
-        // Smartphones
-        "I like my phone",
-        "My phone is not good.",
-        "Your cellphone looks great.",
+  form_groups(cosine_similarity_matrix){
+    let dict_keys_in_group = {};
+    let groups = [];
 
-        // Weather
-        "Will it snow tomorrow?",
-        "Recently a lot of hurricanes have hit the US",
-        "Global warming is real",
+    for(let i=0; i<cosine_similarity_matrix.length; i++){
+      var this_row = cosine_similarity_matrix[i];
+      for(let j=i; j<this_row.length; j++){
+        if(i!=j){
+          let sim_score:number = cosine_similarity_matrix[i][j];
 
-        // Food and health
-        "An apple a day, keeps the doctors away",
-        "Eating strawberries is healthy",
-        "Is paleo better than keto?",
+          if(sim_score > this.input_threshold){
 
-        // Asking about age
-        "How old are you?",
-        "what is your age?"
-    ];
+            let group_num: number;
 
+            if(!(i in dict_keys_in_group)){
+              group_num = groups.length;
+              dict_keys_in_group[i] = group_num;
+            }else{
+              group_num = dict_keys_in_group[i];
+            }
+            if(!(j in dict_keys_in_group)){
+              dict_keys_in_group[j] = group_num;
+            }
+
+            if(groups.length <= group_num){
+              groups.push([]);
+            }
+            groups[group_num].push(i);
+            groups[group_num].push(j);
+          }
+        }
+      }
+    }
+
+    let return_groups = [];
+    for(var i in groups){
+      return_groups.push(Array.from(new Set(groups[i])));
+    }
+
+    console.log(return_groups);
+    return return_groups;
+  }
+
+  async get_similarity(list_sentences){
 
     let callback = function(embeddings) {
 
-      console.log("embeddings", embeddings);
+      // console.log("embeddings", embeddings);
 
       let cosine_similarity_matrix = this.cosine_similarity_matrix(embeddings.arraySync());
+      console.log(cosine_similarity_matrix);
 
+      let groups = this.form_groups(cosine_similarity_matrix);
+
+      let html_groups = "";
+      for(let i in groups){
+        html_groups+="<br/><b>Group "+String(parseInt(i)+1)+"</b><br/>";
+        console.log(groups[i])
+
+        for(let j in groups[i]){
+          console.log(j)
+          console.log(groups[i][j], list_sentences[ groups[i][j] ])
+          html_groups+= list_sentences[ groups[i][j] ] + "<br/>";
+        }
+      }
+
+      this.output_resultshtml = html_groups;
+
+      console.log(html_groups);
+
+      // plot heatmap
       let colors = [];
       let base_color = 54;
       for(let i=0;i<=10;i++){
-        colors.push([i/10, "rgb("+(base_color+(i*20))+", 0, 0)"]);
+        colors.push([i/10, "rgb(0,"+(base_color+(i*20))+",0)"]);
       }
-
-      console.log(cosine_similarity_matrix);
 
       this.plotly_heatmap = {
           data: [
@@ -108,20 +188,16 @@ export class NlpSentenceEncoderComponent implements OnInit {
               colorscale: colors
             }
           ],
-          layout: {height:1200, title: "Similarity", autosize: true}
+          layout: {height:1200, title: "Similarity", autosize: true},
+
       };
+
     };
 
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 
   }
 
-  // async tokenizer(text){
-  //   console.log('use 1');
-  //   use.loadTokenizer().then(tokenizer => {
-  //     return tokenizer.encode(text);
-  //   });
-  //   console.log('use 2');
-  // }
+
 
 }

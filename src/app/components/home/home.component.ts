@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from "../../services/global.service";
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: GlobalService) { }
 
   ngOnInit() {
+    this.service.changePageTitle('JavaScript Exhibits');
   }
 
   showcases = [
@@ -27,6 +29,11 @@ export class HomeComponent implements OnInit {
       name:'Phrases extraction and D3 Wordcloud',
       link:'./phrases-extraction-d3-wordcloud',
       description:'Extracting ngrams from text and display high frequency in beautiful D3 wordcloud.'
+    },
+    {
+      name:'Sentence Similarity With TensorFlow.Js',
+      link:'./nlp-sentence-encoder',
+      description:'Encoding sentences into embedding vectors and perform sentence similarity'
     }
   ];
 

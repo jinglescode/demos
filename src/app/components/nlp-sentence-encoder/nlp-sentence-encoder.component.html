@@ -1,1 +1,59 @@
-<plotly-plot class="mat-elevation-z6" [data]="plotly_heatmap" [layout]="plotly_heatmap.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+<h1>Sentence Similarity with TensorFlow.js Sentence Encoder</h1>
+<p></p>
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Load Sentences</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div fxFlex="50%">
+        <p>
+          The Universal Sentence Encoder <a src="https://arxiv.org/pdf/1803.11175.pdf" target="_blank">(Cer et al., 2018)</a> is a language model that encodes text into 512-dimensional embeddings. We can use these embeddings for natural language processing tasks such as sentiment classification and textual similarity analysis.
+        </p>
+        <p>
+          You can also input your own list of sentences.
+        </p>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+
+      <div fxFlex fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+        <mat-form-field appearance="outline">
+          <mat-label>Input Sentences</mat-label>
+          <textarea matInput rows="20" placeholder="sentences" [(ngModel)]='input_sentences'></textarea>
+          <mat-hint>Every line is a sentence</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Threshold</mat-label>
+          <input matInput placeholder="between 0 to 1" [(ngModel)]='input_threshold'>
+          <mat-hint>Sentences with similarity score higher than threshold are grouped together</mat-hint>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()">Group similar sentences</button>
+        </div>
+      </div>
+
+    </div>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>Results</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    <div fxLayout="column" fxLayout.md="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
+      <div>
+        <div [innerHTML]='output_resultshtml'></div>
+      </div>
+      <div>
+        <plotly-plot class="mat-elevation-z6" [data]="plotly_heatmap" [layout]="plotly_heatmap.layout" [useResizeHandler]="true" [style]="{width: '100%', height: '100%'}"></plotly-plot>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

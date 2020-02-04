@@ -7,6 +7,7 @@ import { RLValueFunctionTicTacToeComponent } from './components/rl-value-functio
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 import { ClusteringD3ForceChartComponent } from './components/clustering-d3-force-chart/clustering-d3-force-chart.component';
 import { NlpSentenceEncoderComponent } from './components/nlp-sentence-encoder/nlp-sentence-encoder.component';
+import { DevtPlaygroundComponent } from './components/devt-playground/devt-playground.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'rl-value-function-tic-tac-toe', component: RLValueFunctionTicTacToeComponent },
   { path: 'clustering-d3-force-chart', component: ClusteringD3ForceChartComponent },
   { path: 'nlp-sentence-encoder', component: NlpSentenceEncoderComponent },
+  { path: 'devt-playground', component: DevtPlaygroundComponent },
 ];
 
 @NgModule({

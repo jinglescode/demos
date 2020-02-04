@@ -55,6 +55,7 @@ import { RLValueFunctionTicTacToeComponent } from './components/rl-value-functio
 import { PhrasesExtractionD3WordcloudComponent } from './components/phrases-extraction-d3-wordcloud/phrases-extraction-d3-wordcloud.component';
 import { ClusteringD3ForceChartComponent } from './components/clustering-d3-force-chart/clustering-d3-force-chart.component';
 import { NlpSentenceEncoderComponent } from './components/nlp-sentence-encoder/nlp-sentence-encoder.component';
+import { DevtPlaygroundComponent } from './components/devt-playground/devt-playground.component';
 
 // directives
 
@@ -67,6 +68,7 @@ import { NlpSentenceEncoderComponent } from './components/nlp-sentence-encoder/n
     PhrasesExtractionD3WordcloudComponent,
     ClusteringD3ForceChartComponent,
     NlpSentenceEncoderComponent,
+    DevtPlaygroundComponent
   ],
   imports: [
     BrowserModule,

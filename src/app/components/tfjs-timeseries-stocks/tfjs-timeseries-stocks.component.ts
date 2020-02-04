@@ -37,8 +37,8 @@ export class TfjsTimeseriesStocksComponent implements OnInit {
   demo_3_ready = false;
   demo_3_div_display = false;
   demo_3_loadingdata = false;
-  input_trainingsize = 70;
-  input_epochs = 5;
+  input_trainingsize = 80;
+  input_epochs = 20;
   input_learningrate = 0.01;
   input_hiddenlayers = 4;
   demo_3_traininglog = "";
