@@ -1,6 +1,4 @@
 <h1>Sentence Similarity with TensorFlow.js Sentence Encoder</h1>
-<p></p>
-
 
 <mat-card>
   <mat-card-header>
@@ -11,10 +9,10 @@
     <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
       <div fxFlex="50%">
         <p>
-          The Universal Sentence Encoder <a src="https://arxiv.org/pdf/1803.11175.pdf" target="_blank">(Cer et al., 2018)</a> is a language model that encodes text into 512-dimensional embeddings. We can use these embeddings for natural language processing tasks such as sentiment classification and textual similarity analysis.
+          Universal Sentence Encoder <a href="https://arxiv.org/pdf/1803.11175.pdf" target="_blank">(Cer et al., 2018)</a> is a language model that encodes text into fixed-length embeddings. It aims <b>to convert sentences into semantically-meaningful dense real-valued vectors</b>.
         </p>
         <p>
-          You can also input your own list of sentences.
+          Try the demo with your own list of sentences.
         </p>
       </div>
       <mat-divider [vertical]="true"></mat-divider>
@@ -31,7 +29,7 @@
           <mat-hint>Sentences with similarity score higher than threshold are grouped together</mat-hint>
         </mat-form-field>
         <div>
-          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()">Group similar sentences</button>
+          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()" [disabled]="analyzing_text">Group similar sentences</button>
         </div>
       </div>
 

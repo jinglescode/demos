@@ -16,7 +16,8 @@ export class NlpSentenceEncoderComponent implements OnInit {
   input_sentences: string;
   input_threshold: 0.5;
   output_resultshtml: string;
-  
+  analyzing_text : boolean;
+
   constructor(private service: GlobalService) { }
 
   ngOnInit() {
@@ -39,7 +40,14 @@ Eating strawberries is healthy
 Is paleo better than keto?
 
 How old are you?
-what is your age?`;
+what is your age?
+
+The dog bit Johnny
+Johnny bit the dog
+
+The cat ate the mouse
+The mouse ate the cat
+`;
     ;
     this.input_threshold = 0.5;
     this.onClickAnalyzeSentences();
@@ -158,18 +166,14 @@ what is your age?`;
       let html_groups = "";
       for(let i in groups){
         html_groups+="<br/><b>Group "+String(parseInt(i)+1)+"</b><br/>";
-        console.log(groups[i])
 
         for(let j in groups[i]){
-          console.log(j)
-          console.log(groups[i][j], list_sentences[ groups[i][j] ])
+          // console.log(groups[i][j], list_sentences[ groups[i][j] ])
           html_groups+= list_sentences[ groups[i][j] ] + "<br/>";
         }
       }
 
       this.output_resultshtml = html_groups;
-
-      console.log(html_groups);
 
       // plot heatmap
       let colors = [];
@@ -191,9 +195,10 @@ what is your age?`;
           layout: {height:1200, title: "Similarity", autosize: true},
 
       };
-
+      this.analyzing_text = false
     };
 
+    this.analyzing_text = true;
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 
   }
