@@ -35,7 +35,7 @@ Packages dependencies:
 
 ## Sentence Similarity With TensorFlow.Js Sentence Encoder
 
-Universal Sentence Encoder [(Cer et al., 2018)](https://arxiv.org/pdf/1803.11175.pdf) is a language model that encodes text into fixed-length embeddings. It aims *to convert sentences into semantically-meaningful dense real-valued vectors*.
+Universal Sentence Encoder [(Cer et al., 2018)](https://arxiv.org/pdf/1803.11175.pdf) is a language model that encodes text into fixed-length embeddings. It aims to convert sentences into semantically-meaningful dense real-valued vectors.
 
 [Demo](https://jinglescode.github.io/demos/nlp-sentence-encoder)
 

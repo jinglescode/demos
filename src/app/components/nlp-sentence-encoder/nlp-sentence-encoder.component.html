@@ -29,9 +29,19 @@
           <mat-hint>Sentences with similarity score higher than threshold are grouped together</mat-hint>
         </mat-form-field>
         <div>
-          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()" [disabled]="analyzing_text">Group similar sentences</button>
+          <div style="float:left">
+            <button mat-raised-button color="primary" (click)="onClickFetchData()" [disabled]="analyzing_text">
+              Fetch Data
+              <mat-icon matTooltip="If disabled: 1) downloading language model from storage.googleapis.com (if may take awhile), 2) analyzing sentences">info</mat-icon>
+            </button>
+          </div>
+          <div style="float:left; padding:5px;" [hidden]="!analyzing_text">
+            <mat-spinner [diameter]="30" [hidden]="!analyzing_text"></mat-spinner>
+          </div>
         </div>
       </div>
+
+
 
     </div>
 

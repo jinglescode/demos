@@ -22,25 +22,17 @@ export class NlpSentenceEncoderComponent implements OnInit {
 
   ngOnInit() {
     this.service.changePageTitle('Sentence Similarity With TensorFlow.Js Sentence Encoder');
-    // Smartphones
-    // Weather
-    // Food and health
-    // Asking about age
     this.input_sentences =
-`I like my phone
-My phone is not good.
-Your cellphone looks great.
-
-Will it snow tomorrow?
+`Will it snow tomorrow?
 Recently a lot of hurricanes have hit the US
 Global warming is real
 
 An apple a day, keeps the doctors away
 Eating strawberries is healthy
-Is paleo better than keto?
 
-How old are you?
 what is your age?
+How old are you?
+How are you?
 
 The dog bit Johnny
 Johnny bit the dog
@@ -51,7 +43,6 @@ The mouse ate the cat
     ;
     this.input_threshold = 0.5;
     this.onClickAnalyzeSentences();
-    // this.main();
   }
 
   async onClickAnalyzeSentences(){
@@ -87,9 +78,10 @@ The mouse ate the cat
   }
 
   similarity(a, b) {
-    var magA = Math.sqrt(this.dot(a, a));
-    var magB = Math.sqrt(this.dot(b, b));
-    if (magA && magB) return this.dot(a, b) / (magA * magB);
+    var magnitudeA = Math.sqrt(this.dot(a, a));
+    var magnitudeB = Math.sqrt(this.dot(b, b));
+    if (magnitudeA && magnitudeB)
+      return this.dot(a, b) / (magnitudeA * magnitudeB);
     else return false
   }
 
@@ -202,7 +194,5 @@ The mouse ate the cat
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 
   }
-
-
 
 }
