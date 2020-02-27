@@ -65,9 +65,7 @@ And this is what we get, weekly stock closing price in blue, and SMA in orange. 
 
 # Training Data
 
-We can prepare the training data with weekly stock prices and the computed SMA. Given the window size is 50, this means that we will use the closing price of every 50 consecutive weeks as our training features (X), and the SMA of those 50 weeks as our training label (Y). Which looks like that...
-
-<script src="https://gist.github.com/jinglescode/60f8f9357b3960a1b3017d7483f8194c.js"></script>
+We can prepare the training data with weekly stock prices and the computed SMA. Given the window size is 50, this means that we will use the closing price of every 50 consecutive weeks as our training features (X), and the SMA of those 50 weeks as our training label (Y). Which [looks like that](https://gist.github.com/jinglescode/60f8f9357b3960a1b3017d7483f8194c).
 
 Next, we split our data into 2 sets, training and validation set. If 70% of the data is used for training, then 30% for validation. The API returns us approximate 1000 weeks of data, so 700 for training, and 300 for validation.
 
@@ -81,7 +79,63 @@ The model will be trained using [Adam](https://js.tensorflow.org/api/latest/#tra
 
 Here is a code snippet of the model described above, [full code on Github](https://github.com/jinglescode/demos/tree/master/src/app/components/tfjs-timeseries-stocks).
 
-<script src="https://gist.github.com/jinglescode/0ca2ea62fdd3332db0c808674ce68671.js"></script>
+```
+async function trainModel(inputs, outputs, trainingsize, window_size, n_epochs, learning_rate, n_layers, callback){
+
+  const input_layer_shape  = window_size;
+  const input_layer_neurons = 100;
+
+  const rnn_input_layer_features = 10;
+  const rnn_input_layer_timesteps = input_layer_neurons / rnn_input_layer_features;
+
+  const rnn_input_shape  = [rnn_input_layer_features, rnn_input_layer_timesteps];
+  const rnn_output_neurons = 20;
+
+  const rnn_batch_size = window_size;
+
+  const output_layer_shape = rnn_output_neurons;
+  const output_layer_neurons = 1;
+
+  const model = tf.sequential();
+
+  let X = inputs.slice(0, Math.floor(trainingsize / 100 * inputs.length));
+  let Y = outputs.slice(0, Math.floor(trainingsize / 100 * outputs.length));
+
+  const xs = tf.tensor2d(X, [X.length, X[0].length]).div(tf.scalar(10));
+  const ys = tf.tensor2d(Y, [Y.length, 1]).reshape([Y.length, 1]).div(tf.scalar(10));
+
+  model.add(tf.layers.dense({units: input_layer_neurons, inputShape: [input_layer_shape]}));
+  model.add(tf.layers.reshape({targetShape: rnn_input_shape}));
+
+  let lstm_cells = [];
+  for (let index = 0; index < n_layers; index++) {
+       lstm_cells.push(tf.layers.lstmCell({units: rnn_output_neurons}));
+  }
+
+  model.add(tf.layers.rnn({
+    cell: lstm_cells,
+    inputShape: rnn_input_shape,
+    returnSequences: false
+  }));
+
+  model.add(tf.layers.dense({units: output_layer_neurons, inputShape: [output_layer_shape]}));
+
+  model.compile({
+    optimizer: tf.train.adam(learning_rate),
+    loss: 'meanSquaredError'
+  });
+
+  const hist = await model.fit(xs, ys,
+    { batchSize: rnn_batch_size, epochs: n_epochs, callbacks: {
+      onEpochEnd: async (epoch, log) => {
+        callback(epoch, log);
+      }
+    }
+  });
+
+  return { model: model, stats: hist };
+}
+```
 
 These are the [hyper-parameters](https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)) (parameters used in the training process) available for tweaking in the [frontend](https://jinglescode.github.io/demos/tfjs-timeseries-stocks):
 - Training Dataset Size (%): the amount of data used for training, and remaining data will be used for validation
