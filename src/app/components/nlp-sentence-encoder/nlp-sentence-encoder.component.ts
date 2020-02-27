@@ -16,7 +16,8 @@ export class NlpSentenceEncoderComponent implements OnInit {
   input_sentences: string;
   input_threshold: 0.5;
   output_resultshtml: string;
-  
+  analyzing_sentences: false;
+
   constructor(private service: GlobalService) { }
 
   ngOnInit() {
@@ -39,7 +40,14 @@ Eating strawberries is healthy
 Is paleo better than keto?
 
 How old are you?
-what is your age?`;
+what is your age?
+How are you?
+
+Johnny bit the dog
+The dog bit Johnny
+
+The cat ate the mouse
+the mouse ate cat food`;
     ;
     this.input_threshold = 0.5;
     this.onClickAnalyzeSentences();
@@ -158,11 +166,7 @@ what is your age?`;
       let html_groups = "";
       for(let i in groups){
         html_groups+="<br/><b>Group "+String(parseInt(i)+1)+"</b><br/>";
-        console.log(groups[i])
-
         for(let j in groups[i]){
-          console.log(j)
-          console.log(groups[i][j], list_sentences[ groups[i][j] ])
           html_groups+= list_sentences[ groups[i][j] ] + "<br/>";
         }
       }
@@ -192,8 +196,10 @@ what is your age?`;
 
       };
 
+      analyzing_sentences = false;
     };
 
+    analyzing_sentences = true;
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 
   }

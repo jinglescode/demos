@@ -31,7 +31,7 @@
           <mat-hint>Sentences with similarity score higher than threshold are grouped together</mat-hint>
         </mat-form-field>
         <div>
-          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()">Group similar sentences</button>
+          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()" [disabled]="analyzing_sentences">Group similar sentences</button>
         </div>
       </div>
 
