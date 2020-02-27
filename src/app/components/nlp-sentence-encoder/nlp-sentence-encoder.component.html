@@ -1,20 +1,21 @@
 <h1>Sentence Similarity with TensorFlow.js Sentence Encoder</h1>
-<p></p>
-
 
 <mat-card>
   <mat-card-header>
-    <mat-card-title><h1>Load Sentences</h1></mat-card-title>
+    <mat-card-title><h1>Find similar sentences</h1></mat-card-title>
   </mat-card-header>
   <mat-card-content>
 
     <div fxLayout="row" fxLayout.md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px">
       <div fxFlex="50%">
         <p>
-          The Universal Sentence Encoder <a src="https://arxiv.org/pdf/1803.11175.pdf" target="_blank">(Cer et al., 2018)</a> is a language model that encodes text into 512-dimensional embeddings. We can use these embeddings for natural language processing tasks such as sentiment classification and textual similarity analysis.
+          Have you wondered how search engines understand your queries and match the relevant results? How chatbot extract your intent from your questions and provide the most appropriate response?
         </p>
         <p>
-          You can also input your own list of sentences.
+          Universal Sentence Encoder <a href="https://arxiv.org/pdf/1803.11175.pdf" target="_blank">(Cer et al., 2018)</a> is a language model that encodes text into fixed-length embeddings. It aims <b>to convert sentences into semantically-meaningful dense real-valued vectors</b>.
+        </p>
+        <p>
+          Try the demo with your own list of sentences. [<a href="https://github.com/jinglescode/demos/tree/master/src/app/components/nlp-sentence-encoder" target="_blank">read more</a>]
         </p>
       </div>
       <mat-divider [vertical]="true"></mat-divider>
@@ -31,10 +32,17 @@
           <mat-hint>Sentences with similarity score higher than threshold are grouped together</mat-hint>
         </mat-form-field>
         <div>
-          <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()" [disabled]="analyzing_sentences">Group similar sentences</button>
+          <div style="float:left">
+            <button mat-raised-button color="primary" (click)="onClickAnalyzeSentences()" [disabled]="analyzing_text">
+              Fetch Data
+              <mat-icon matTooltip="If disabled: 1) downloading language model from storage.googleapis.com (if may take awhile), 2) analyzing sentences">info</mat-icon>
+            </button>
+          </div>
+          <div style="float:left; padding:5px;" [hidden]="!analyzing_text">
+            <mat-spinner [diameter]="30" [hidden]="!analyzing_text"></mat-spinner>
+          </div>
         </div>
       </div>
-
     </div>
 
   </mat-card-content>
@@ -42,7 +50,7 @@
 
 <mat-card>
   <mat-card-header>
-    <mat-card-title><h1>Results</h1></mat-card-title>
+    <mat-card-title><h1>Grouping Results</h1></mat-card-title>
   </mat-card-header>
   <mat-card-content>
 

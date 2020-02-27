@@ -16,42 +16,33 @@ export class NlpSentenceEncoderComponent implements OnInit {
   input_sentences: string;
   input_threshold: 0.5;
   output_resultshtml: string;
-  analyzing_sentences: false;
+  analyzing_text : boolean;
 
   constructor(private service: GlobalService) { }
 
   ngOnInit() {
     this.service.changePageTitle('Sentence Similarity With TensorFlow.Js Sentence Encoder');
-    // Smartphones
-    // Weather
-    // Food and health
-    // Asking about age
     this.input_sentences =
-`I like my phone
-My phone is not good.
-Your cellphone looks great.
-
-Will it snow tomorrow?
+`Will it snow tomorrow?
 Recently a lot of hurricanes have hit the US
 Global warming is real
 
 An apple a day, keeps the doctors away
 Eating strawberries is healthy
-Is paleo better than keto?
 
-How old are you?
 what is your age?
+How old are you?
 How are you?
 
-Johnny bit the dog
 The dog bit Johnny
+Johnny bit the dog
 
 The cat ate the mouse
-the mouse ate cat food`;
-    ;
+The mouse ate the cat
+`;
+
     this.input_threshold = 0.5;
     this.onClickAnalyzeSentences();
-    // this.main();
   }
 
   async onClickAnalyzeSentences(){
@@ -87,9 +78,10 @@ the mouse ate cat food`;
   }
 
   similarity(a, b) {
-    var magA = Math.sqrt(this.dot(a, a));
-    var magB = Math.sqrt(this.dot(b, b));
-    if (magA && magB) return this.dot(a, b) / (magA * magB);
+    var magnitudeA = Math.sqrt(this.dot(a, a));
+    var magnitudeB = Math.sqrt(this.dot(b, b));
+    if (magnitudeA && magnitudeB)
+      return this.dot(a, b) / (magnitudeA * magnitudeB);
     else return false
   }
 
@@ -167,13 +159,12 @@ the mouse ate cat food`;
       for(let i in groups){
         html_groups+="<br/><b>Group "+String(parseInt(i)+1)+"</b><br/>";
         for(let j in groups[i]){
+          // console.log(groups[i][j], list_sentences[ groups[i][j] ])
           html_groups+= list_sentences[ groups[i][j] ] + "<br/>";
         }
       }
 
       this.output_resultshtml = html_groups;
-
-      console.log(html_groups);
 
       // plot heatmap
       let colors = [];
@@ -195,15 +186,12 @@ the mouse ate cat food`;
           layout: {height:1200, title: "Similarity", autosize: true},
 
       };
-
-      analyzing_sentences = false;
+      this.analyzing_text = false
     };
 
-    analyzing_sentences = true;
+    this.analyzing_text = true;
     let embeddings = await this.get_embeddings(list_sentences, callback.bind(this));
 
   }
-
-
 
 }

@@ -33,6 +33,18 @@ Packages dependencies:
 - d3
 - d3.layout.cloud
 
+## Sentence Similarity With TensorFlow.Js Sentence Encoder
+
+Universal Sentence Encoder [(Cer et al., 2018)](https://arxiv.org/pdf/1803.11175.pdf) is a language model that encodes text into fixed-length embeddings. It aims to convert sentences into semantically-meaningful dense real-valued vectors.
+
+[Demo](https://jinglescode.github.io/demos/nlp-sentence-encoder) |
+[Code](https://github.com/jinglescode/demos/tree/master/src/app/components/nlp-sentence-encoder) |
+[Article](https://jinglescode.github.io/datascience/2020/02/10/build-textual-similarity-analysis-web-app/)
+
+Packages dependencies:
+- @tensorflow/tfjs
+- @tensorflow-models/universal-sentence-encoder
+
 # Features
 
 - packages are shared among all the exhibits, reduces setup time and we can focus on building JavaScript projects
