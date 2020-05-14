@@ -2,6 +2,14 @@
 
 Here are the list of JavaScript projects in this repo. I work on them during my free time. If you are interested to collaborate on working a cool JavaScript side project together, [reach out to me](https://jinglescode.github.io/), I will be happy to chat!
 
+## Depreciated
+
+This repo has been decommissioned. But here are the updated repos:
+- [Time Series Forecasting With TensorFlow.Js](https://github.com/jinglescode/time-series-forecasting-tensorflowjs)
+- [Sentence Similarity With TensorFlow.Js Sentence Encoder](https://github.com/jinglescode/textual-similarity-universal-sentence-encoder)
+- [Reinforcement Learning Value Function with Tic Tac Toe](https://github.com/jinglescode/reinforcement-learning-tic-tac-toe)
+- [Phrases Extraction And D3 Wordcloud](https://github.com/jinglescode/phrases-extraction-wordcloud)
+
 ## Time Series Forecasting With TensorFlow.Js
 
 Pull stock prices from online API and perform predictions using Recurrent Neural Network and Long Short-Term Memory (LSTM) with TensorFlow.js framework.
